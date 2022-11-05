@@ -1,7 +1,7 @@
 const express = require("express"),
       router = express.Router(),
-      fUtil = require("../misc/file"),
-      stuff = require("./info"),
+      fUtil = require("../models/file"),
+      stuff = require("../models/page"),
       http = require("http");
 
 function toAttrString(table) {
@@ -31,21 +31,21 @@ function toObjectString(attrs, params) {
  */
 var title, attrs, params;
 router.get("/cc", (req, res, url) => {
-  const query = url.query;
-  title = "Character Creator";
+	const query = url.query;
+	title = "Character Creator";
 	attrs = {
-    data: process.env.SWF_URL + "/cc.swf", // data: 'cc.swf',
+		data: process.env.SWF_URL + "/cc.swf", // data: 'cc.swf',
 		type: "application/x-shockwave-flash",
 		id: "char_creator",
 		width: "100%",
 		height: "100%",
-  };
+	};
 	params = {
-    flashvars: {
-      apiserver: "/",
-      storePath: process.env.STORE_URL + "/<store>",
-      clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-      original_asset_id: query["id"] || null,
+		flashvars: {
+			apiserver: "/",
+			storePath: process.env.STORE_URL + "/<store>",
+			clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
+			original_asset_id: query["id"] || null,
 			themeId: "business",
 			ut: 60,
 			bs: "default",
@@ -57,11 +57,11 @@ router.get("/cc", (req, res, url) => {
 			isEmbed: 1,
 			ctc: "go",
 			tlang: "en_US",
-    },
-    allowScriptAccess: "always",
-    movie: process.env.SWF_URL + "/cc.swf", // 'http://localhost/cc_browser.swf'
-  };
-  res.setHeader("Content-Type", "text/html; charset=UTF-8");
+		},
+		allowScriptAccess: "always",
+		movie: process.env.SWF_URL + "/cc.swf", // 'http://localhost/cc_browser.swf'
+	};
+	res.setHeader("Content-Type", "text/html; charset=UTF-8");
 	Object.assign(params.flashvars, query);
 	res.send(
 		`<script>document.title='${title}',flashvars=${JSON.stringify(
@@ -70,19 +70,19 @@ router.get("/cc", (req, res, url) => {
 	);
 })
 router.get("/cc_browser", (req, res, url) => {
-  const query = url.query;
-  title = "CC Browser";
+	const query = url.query;
+	title = "CC Browser";
 	attrs = {
-    data: process.env.SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
+		data: process.env.SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
 		type: "application/x-shockwave-flash",
 		id: "char_creator",
 		width: "100%",
 		height: "100%",
 	};
 	params = {
-    flashvars: {
+		flashvars: {
 			apiserver: "/",
-      storePath: process.env.STORE_URL + "/<store>",
+			storePath: process.env.STORE_URL + "/<store>",
 			clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
 			original_asset_id: query["id"] || null,
 			themeId: "family",
@@ -96,11 +96,11 @@ router.get("/cc_browser", (req, res, url) => {
 			ctc: "go",
 			tlang: "en_US",
 			lid: 13,
-    },
+		},
 		allowScriptAccess: "always",
 		movie: process.env.SWF_URL + "/cc_browser.swf", // 'http://localhost/cc_browser.swf'
 	};
-  res.setHeader("Content-Type", "text/html; charset=UTF-8");
+	res.setHeader("Content-Type", "text/html; charset=UTF-8");
 	Object.assign(params.flashvars, query);
 	res.send(
 		`<script>document.title='${title}',flashvars=${JSON.stringify(
@@ -109,10 +109,10 @@ router.get("/cc_browser", (req, res, url) => {
 	);
 })
 router.get("/go_full", (req, res, url) => {
-  const query = url.query;
-  title = "Video Editor";
+	const query = url.query;
+	title = "Video Editor";
 	attrs = {
-    data: process.env.SWF_URL + `/go_full${url.query.v || ""}.swf`,
+		data: process.env.SWF_URL + `/go_full${url.query.v || ""}.swf`,
 		type: "application/x-shockwave-flash",
 		width: "100%",
 		height: "100%",
@@ -142,7 +142,7 @@ router.get("/go_full", (req, res, url) => {
 		},
 		allowScriptAccess: "always",
 	};
-  res.setHeader("Content-Type", "text/html; charset=UTF-8");
+	res.setHeader("Content-Type", "text/html; charset=UTF-8");
 	Object.assign(params.flashvars, query);
 	res.send(
 		`<script>document.title='${title}',flashvars=${JSON.stringify(
@@ -151,8 +151,8 @@ router.get("/go_full", (req, res, url) => {
 	);
 })
 router.get("/player", (req, res, url) => {
-  const query = url.query;
-  title = "Player";
+	const query = url.query;
+	title = "Player";
 	attrs = {
 		data: process.env.SWF_URL + "/player.swf",
 		type: "application/x-shockwave-flash",
@@ -171,7 +171,7 @@ router.get("/player", (req, res, url) => {
 		allowScriptAccess: "always",
 		allowFullScreen: "true",
 	};
-  res.setHeader("Content-Type", "text/html; charset=UTF-8");
+	res.setHeader("Content-Type", "text/html; charset=UTF-8");
 	Object.assign(params.flashvars, query);
 	res.send(
 		`<script>document.title='${title}',flashvars=${JSON.stringify(
