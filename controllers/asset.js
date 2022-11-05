@@ -12,7 +12,8 @@ const express = require("express"),
       util = require("../models/util"),
       mp3Duration = require("mp3-duration"),
       tempfile = require("tempfile"),
-      ffmpeg = require("fluent-ffmpeg")
+      ffmpeg = require("fluent-ffmpeg"),
+      get = require("../modules/get")
 ffmpeg.setFfmpegPath(require("@ffmpeg-installer/ffmpeg").path);
 ffmpeg.setFfprobePath(require("@ffprobe-installer/ffprobe").path);
 function movieXml(v) {
@@ -127,6 +128,10 @@ router.get(/\/assets\/([^/]+)\/([^/]+)$/, (req, res) => {
 	asset.loadOnGetRequest(type, aId, ext).then(b => res.end(b)).catch(e => { 
 		console.log(e), res.end(`<center><h1>${e || "404 Not Found"}</h1></center>`)
 	});
+})
+router.get(/\/stock_thumbs\/([^/]+)$/, (req, res) => {
+	const file = req.matches[1];
+	get(process.env.THUMB_BASE_URL + '/' + file).then(v => res.end(v)).catch(e => console.log(e));
 })
 router.post(["/goapi/getAsset/","/goapi/getAssetEx/"], (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
