@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const url = require("url")
+const fs = require("fs")
 
 // env stuff
 const env = {
@@ -9,8 +10,7 @@ const env = {
 	THUMB_BASE_URL: "https://raw.githubusercontent.com/Anistick/anithumbs/master/thumbnails",
 	XML_HEADER: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n",
 	CROSSDOMAIN: "<cross-domain-policy><allow-access-from domain=\"*\"/></cross-domain-policy>",
-	META_FOLDER: "./_ASSETS/meta",
-	ASSETS_FOLDER: "./_ASSETS",
+	META_FOLDER: "./files/assets/meta",
 	FILE_WIDTH: 1000,
 	GATHER_THREADS: 100,
 	GATHER_THRESH1: 250000000,
@@ -25,6 +25,10 @@ const env = {
 	CACHÉ_FOLDER: "./files/cache",
 	THEME_FOLDER: "./files/themes"
 };
+if (!fs.existsSync(env.SAVED_FOLDER)) fs.mkdirSync(env.SAVED_FOLDER)
+if (!fs.existsSync(env.CACHÉ_FOLDER)) fs.mkdirSync(env.CACHÉ_FOLDER)
+if (!fs.existsSync(env.META_FOLDER.slice(0, -5))) fs.mkdirSync(env.META_FOLDER.slice(0, -5))
+if (!fs.existsSync(env.META_FOLDER)) fs.mkdirSync(env.META_FOLDER)
 Object.assign(process.env, env, require("./config"));
 
 // app functions
