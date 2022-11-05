@@ -16,7 +16,7 @@
 		},
 		"/$": {
 			"headers": {
-				"Location": "/html/list.html"
+				"Content-Type": "text/html; charset=utf8"
 			},
 			"statusCode": 302,
 			"content": ""
