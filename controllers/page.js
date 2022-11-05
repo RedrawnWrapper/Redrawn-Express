@@ -185,7 +185,8 @@ router.get("/player", (req, res) => {
 	);
 })
 router.get("/test/aniPlayer", (req, res) => {
+	const p = url.parse(req.url, true);
 	res.setHeader("Content-Type", "text/html; charset=utf8");
-	res.send(`<body style="margin:0px"><object id="obj" data="https://lightspeed.anistick.com/vp.swf" type="application/x-shockwave-flash" width="100%" height="100%"><param name="flashvars" value="vURL=http%3A%2F%2Fcommondatastorage.googleapis.com%2Fgtv-videos-bucket%2Fsample%2FBigBuckBunny.mp4"> <param name="allowScriptAccess" value="always"></object></body>`);
+	res.send(`<body style="margin:0px"><object id="obj" data="https://lightspeed.anistick.com/vp.swf" type="application/x-shockwave-flash" width="100%" height="100%"><param name="flashvars" value="vURL=${toParamString(p.query.fileUrl)}"> <param name="allowScriptAccess" value="always"></object></body>`);
 })
 module.exports = router;
