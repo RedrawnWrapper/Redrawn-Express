@@ -176,7 +176,7 @@ router.get("/player", (req, res, url) => {
 	res.send(
 		`<script>document.title='${title}',flashvars=${JSON.stringify(
 			params.flashvars
-		)}</script><body style="margin:0px">${toObjectString(attrs, params)}</body>${stuff.pages["/go_full"] || ""}`
+		)}</script><body style="margin:0px">${toObjectString(attrs, params)}</body>`
 	);
 })
 module.exports = router;
