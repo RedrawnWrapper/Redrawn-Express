@@ -21,11 +21,9 @@ const env = {
 	HTTP_PORT: 80,
 	HTTPS_PORT: 443,
 	NODE_ENV: "dev",
-	SAVED_FOLDER: "./_SAVED",
-	CACHÉ_FOLDER: "./_CACHÉ",
-	THEME_FOLDER: "./_THEMES",
-	PREMADE_FOLDER: "./_PREMADE",
-	EXAMPLE_FOLDER: "./_EXAMPLES"
+	SAVED_FOLDER: "./files/saved",
+	CACHÉ_FOLDER: "./files/cache",
+	THEME_FOLDER: "./files/themes"
 };
 Object.assign(process.env, env, require("./config"));
 
