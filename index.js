@@ -41,7 +41,7 @@ app.use((req, res) => {
 	}
 })
 // logs
-app.all('/', (req, res) => {
+app.use((req, res) => {
 	try {
 		const p = url.parse(req.url, true);
 		if (req.url == "/") res.statusCode = 304;
@@ -54,4 +54,4 @@ app.all('/', (req, res) => {
 		res.send(x)
 	}
 })
-app.listen(process.env.PORT || 80)
+app.listen(process.env.PORT || 80, console.log("Anistick Has Started"))
