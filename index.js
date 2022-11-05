@@ -31,7 +31,6 @@ Object.assign(process.env, env, require("./config"));
 
 // app functions
 app.use(require("./controllers"))
-app.use(url)
 app.all('/', (req, res) => {
 	const p = url.parse(req.url, true);
 	console.log(req.method, p.path, "-", res.statusCode);
