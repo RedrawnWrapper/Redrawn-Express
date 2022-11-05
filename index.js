@@ -40,4 +40,18 @@ app.use((req, res) => {
 		}
 	}
 })
+// logs
+app.all('/', (req, res) => {
+	try {
+		const p = url.parse(req.url, true);
+		if (req.url == "/") res.statusCode = 304;
+		console.log(req.method, p.path, "-", res.statusCode);
+	} catch (x) {
+		res.statusCode = 500;
+		const p = url.parse(req.url, true);
+		if (req.url == "/") res.statusCode = 304;
+		console.log(req.method, p.path, "-", res.statusCode);
+		res.send(x)
+	}
+})
 app.listen(process.env.PORT || 80)
