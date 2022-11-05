@@ -2,7 +2,6 @@
 const express = require('express')
 const app = express()
 const url = require("url")
-const fs = require("fs")
 
 // env stuff
 const env = {
