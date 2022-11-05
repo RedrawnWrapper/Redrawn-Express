@@ -2,7 +2,8 @@ const express = require("express"),
       router = express.Router(),
       fUtil = require("../models/file"),
       stuff = require("../models/page"),
-      http = require("http");
+      http = require("http"),
+      url = require("url")
 
 function toAttrString(table) {
 	return typeof table == "object"
@@ -30,8 +31,9 @@ function toObjectString(attrs, params) {
  * @returns {boolean}
  */
 var title, attrs, params;
-router.get("/cc", (req, res, url) => {
-	const query = url.query;
+router.get("/cc", (req, res) => {
+	const p = url.parse(req.url, true);
+	const query = p.query;
 	title = "Character Creator";
 	attrs = {
 		data: process.env.SWF_URL + "/cc.swf", // data: 'cc.swf',
@@ -70,7 +72,8 @@ router.get("/cc", (req, res, url) => {
 	);
 })
 router.get("/cc_browser", (req, res, url) => {
-	const query = url.query;
+	const p = url.parse(req.url, true);
+	const query = p.query;
 	title = "CC Browser";
 	attrs = {
 		data: process.env.SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
@@ -109,10 +112,11 @@ router.get("/cc_browser", (req, res, url) => {
 	);
 })
 router.get("/go_full", (req, res, url) => {
-	const query = url.query;
+	const p = url.parse(req.url, true);
+	const query = p.query;
 	title = "Video Editor";
 	attrs = {
-		data: process.env.SWF_URL + `/go_full${url.query.v || ""}.swf`,
+		data: process.env.SWF_URL + `/go_full${query.v || ""}.swf`,
 		type: "application/x-shockwave-flash",
 		width: "100%",
 		height: "100%",
@@ -151,7 +155,8 @@ router.get("/go_full", (req, res, url) => {
 	);
 })
 router.get("/player", (req, res, url) => {
-	const query = url.query;
+	const p = url.parse(req.url, true);
+	const query = p.query;
 	title = "Player";
 	attrs = {
 		data: process.env.SWF_URL + "/player.swf",
