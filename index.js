@@ -8,6 +8,7 @@ Object.assign(process.env, require("./env"), require("./config"));
 
 // app functions
 app.use(require("./controllers"))
+app.use(require("morgan")("dev"))
 const stuff = require("./models/page");
 app.use((req, res) => {
 	const p = url.parse(req.url, true);
@@ -40,18 +41,5 @@ app.use((req, res) => {
 		}
 	}
 })
-// logs
-app.use((req, res) => {
-	try {
-		const p = url.parse(req.url, true);
-		if (req.url == "/") res.statusCode = 304;
-		console.log(req.method, p.path, "-", res.statusCode);
-	} catch (x) {
-		res.statusCode = 500;
-		const p = url.parse(req.url, true);
-		if (req.url == "/") res.statusCode = 304;
-		console.log(req.method, p.path, "-", res.statusCode);
-		res.send(x)
-	}
-})
+
 app.listen(process.env.PORT || 80, console.log("Anistick Has Started"))
