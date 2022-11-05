@@ -1,6 +1,6 @@
 const folder = process.env.SAVED_FOLDER,
       nodezip = require("node-zip"),
-      fs = require("fs");
+      fs = require("fs")
 
 exports.padZero = function(n, l = process.env.FILE_NUM_WIDTH) {
 	return ("" + n).padStart(l, "0");
@@ -42,12 +42,11 @@ exports.getLastFileIndex = function(s, suf = ".xml", l = 7) {
 	const list = fs.readdirSync(folder).filter((v) => v && regex.test(v));
 	return list.length ? Number.parseInt(list.pop().substr(s.length, l)) : -1;
 };
-exports.makeZip = function(fileName, zipName) {
-	if (!fs.existsSync(fileName)) return Promise.reject();
+exports.makeZip = async function(fileName, zipName) {
 	const buffer = fs.readFileSync(fileName);
 	const zip = nodezip.create();
 	this.addToZip(zip, zipName, buffer);
-	return zip.zip();
+	return await zip.zip();
 };
 exports.addToZip = function(zip, zipName, buffer) {
 	zip.add(zipName, buffer);
