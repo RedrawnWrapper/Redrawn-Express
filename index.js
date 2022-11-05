@@ -30,5 +30,5 @@ const env = {
 Object.assign(process.env, env, require("./config"));
 
 // app functions
-app.use(require("./controllers"))
+app.use(url, require("./controllers"))
 app.listen(process.env.PORT || 80)
