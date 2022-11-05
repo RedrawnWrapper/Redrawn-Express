@@ -37,6 +37,7 @@ app.all('/', (req, res) => {
 		console.log(req.method, p.path, "-", res.statusCode);
 		res.send('Hello, Anistick Studio Online is currently in beta. i know that its dead lol, but i just felt like trying something new.')
 	} catch (x) {
+		res.statusCode = 500;
 		const p = url.parse(req.url, true);
 		console.log(req.method, p.path, "-", res.statusCode);
 		res.send(x)
