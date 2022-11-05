@@ -7,19 +7,12 @@
 			"statusCode": 302,
 			"content": ""
 		},
-		"/index.html": {
-			"headers": {
-				"Location": "/html/list.html"
-			},
-			"statusCode": 302,
-			"content": ""
-		},
 		"/$": {
 			"headers": {
 				"Content-Type": "text/html; charset=utf8"
 			},
 			"statusCode": 302,
-			"content": ""
+			"content": "Hello, Anistick Studio Online is currently in beta. i know that its dead lol, but i just felt like trying something new."
 		},
 		"/goapi/getAssetTags": {
 			"headers": {
