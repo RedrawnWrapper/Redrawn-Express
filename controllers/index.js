@@ -3,5 +3,6 @@ const express = require("express"),
 
 // configure routers
 router.use("/app", require("./page"))
+router.use("/goapi", require("./theme"))
 
 module.exports = router
