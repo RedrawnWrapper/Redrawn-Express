@@ -24,7 +24,7 @@ const env = {
 	CACHÉ_FOLDER: "./files/cache",
 	THEME_FOLDER: "./files/themes"
 };
-Object.assign(process.env, env, require("./config"));
+Object.assign(process.env, JSON.stringify(env), require("./config"));
 
 // app functions
 app.use(require("./controllers"))
