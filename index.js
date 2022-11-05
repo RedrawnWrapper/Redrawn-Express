@@ -32,8 +32,14 @@ Object.assign(process.env, env, require("./config"));
 // app functions
 app.use(require("./controllers"))
 app.all('/', (req, res) => {
-	const p = url.parse(req.url, true);
-	console.log(req.method, p.path, "-", res.statusCode);
-	res.send('Hello, Anistick Studio Online is currently in beta. i know that its dead lol, but i just felt like trying something new.')
+	try {
+		const p = url.parse(req.url, true);
+		console.log(req.method, p.path, "-", res.statusCode);
+		res.send('Hello, Anistick Studio Online is currently in beta. i know that its dead lol, but i just felt like trying something new.')
+	} catch (x) {
+		const p = url.parse(req.url, true);
+		console.log(req.method, p.path, "-", res.statusCode);
+		res.send(x)
+	}
 })
 app.listen(process.env.PORT || 80)
