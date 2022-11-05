@@ -1,7 +1,5 @@
 const express = require("express"),
-	router = express.Router(),
-        url = require("url");
-
+	router = express.Router()  
 
 // configure routers
 router.use("/app", require("./page"))
