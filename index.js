@@ -58,15 +58,7 @@ app.use((req, res) => {
 				res.statusCode = t.statusCode || 404;
 				res.end();
 			}
-			return true;
 		}
-	}
-	try {
-		console.log(req.method, p.path, "-", res.statusCode);
-	} catch (x) {
-		res.statusCode = 500;
-		console.log(req.method, p.path, "-", res.statusCode);
-		res.send(x);
 	}
 })
 app.listen(process.env.PORT || 80)
