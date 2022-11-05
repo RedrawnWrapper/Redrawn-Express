@@ -1,5 +1,8 @@
+// vars
 const express = require('express')
 const app = express()
+// app functions
+app.use(require("./controllers"))
 app.all('/', (req, res) => {
     if (req.url == "/") res.statusCode = 304;
     console.log(req.method, req.url, "-", res.statusCode);
