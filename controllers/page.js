@@ -18,6 +18,11 @@ function toParamString(table) {
 		.map((key) => `<param name="${key}" value="${toAttrString(table[key])}">`)
 		.join(" ");
 }
+function toObjString(table) {
+	return Object.keys(table)
+		.map((key) => `${toAttrString(table[key])}`)
+		.join(" ");
+}
 function toObjectString(attrs, params) {
 	return `<object id="obj" ${Object.keys(attrs)
 		.map((key) => `${key}="${attrs[key].replace(/"/g, '\\"')}"`)
