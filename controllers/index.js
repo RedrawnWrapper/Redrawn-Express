@@ -5,7 +5,7 @@ const express = require("express"),
 
 // configure routers
 router.use("/app", require("./page"))
-router.use('/', (req, res) => {
+router.get('/', (req, res) => {
 	req.query = url.query;
 	const p = url.parse(req.url, true);
 	if (req.url == "/") res.statusCode = 304;
