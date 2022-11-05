@@ -1,7 +1,6 @@
 // vars
 const express = require('express')
 const app = express()
-const url = require("url");
 
 // env stuff
 const env = {
@@ -32,6 +31,7 @@ Object.assign(process.env, env, require("./config"));
 // app functions
 app.use(require("./controllers"))
 app.all('/', (req, res) => {
+	const url = require("url");
 	req.query = url.query;
 	const p = url.parse(req.url, true);
 	if (req.url == "/") res.statusCode = 304;
