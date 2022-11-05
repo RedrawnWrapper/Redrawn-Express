@@ -25,10 +25,6 @@ const env = {
 	CACHÉ_FOLDER: "./files/cache",
 	THEME_FOLDER: "./files/themes"
 };
-if (!fs.existsSync(env.SAVED_FOLDER)) fs.mkdirSync(env.SAVED_FOLDER)
-if (!fs.existsSync(env.CACHÉ_FOLDER)) fs.mkdirSync(env.CACHÉ_FOLDER)
-if (!fs.existsSync(env.META_FOLDER.slice(0, -5))) fs.mkdirSync(env.META_FOLDER.slice(0, -5))
-if (!fs.existsSync(env.META_FOLDER)) fs.mkdirSync(env.META_FOLDER)
 Object.assign(process.env, env, require("./config"));
 
 // app functions
