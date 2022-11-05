@@ -2,8 +2,8 @@ const express = require("express"),
       router = express.Router(),
       fUtil = require("../models/file"),
       stuff = require("../models/page"),
-      http = require("http")
-const url = require("url")
+      http = require("http"),
+      url = require("url")
 
 function toAttrString(table) {
 	return typeof table == "object"
