@@ -198,7 +198,7 @@ router.post("/goapi/getUserAssets/", (req, res) => {
 					res.setHeader("Content-Type", "application/zip");
 					res.write(base);
 					res.end(buff);
-				}).catch(e => { res.end(1 + util.assetFail(e)), console.log(e; });
+				}).catch(e => { res.end(1 + util.assetFail(e)), console.log(e) });
 				break;
 			}
 		}
