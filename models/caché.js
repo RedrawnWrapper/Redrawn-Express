@@ -32,7 +32,7 @@ exports.validAssetId = function(aId) {
 		case "time":
 			return false;
 		default: return true;
-	},
+	}
 };
 exports.saveTable = function(mId, buffers = {}) {
 	for (const aId in buffers) this.save(mId, aId, buffers[aId]);
