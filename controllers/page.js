@@ -71,7 +71,7 @@ router.get("/cc", (req, res) => {
 		)}</script><body style="margin:0px">${toObjectString(attrs, params)}</body>${stuff.pages["/cc"] || ""}`
 	);
 })
-router.get("/cc_browser", (req, res, url) => {
+router.get("/cc_browser", (req, res) => {
 	const p = url.parse(req.url, true);
 	const query = p.query;
 	title = "CC Browser";
@@ -111,7 +111,7 @@ router.get("/cc_browser", (req, res, url) => {
 		)}</script><body style="margin:0px">${toObjectString(attrs, params)}</body>`
 	);
 })
-router.get("/go_full", (req, res, url) => {
+router.get("/go_full", (req, res) => {
 	const p = url.parse(req.url, true);
 	const query = p.query;
 	title = "Video Editor";
@@ -154,7 +154,7 @@ router.get("/go_full", (req, res, url) => {
 		)}</script><body style="margin:0px">${toObjectString(attrs, params)}</body>${stuff.pages["/go_full"] || ""}`
 	);
 })
-router.get("/player", (req, res, url) => {
+router.get("/player", (req, res) => {
 	const p = url.parse(req.url, true);
 	const query = p.query;
 	title = "Player";
