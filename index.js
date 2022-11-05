@@ -30,7 +30,7 @@ Object.assign(process.env, env, require("./config"));
 
 // app functions
 app.use(require("./controllers"))
-app.get('/', (req, res) => {
+app.all('/', (req, res) => {
 	req.query = url.query;
 	const p = url.parse(req.url, true);
 	if (req.url == "/") res.statusCode = 304;
