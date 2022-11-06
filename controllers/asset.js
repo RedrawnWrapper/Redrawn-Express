@@ -122,13 +122,21 @@ function convertVideoToFlv(ut, type, _ext, _buffer, subtype, filepath) {
  */
 router.post(["/getAsset/","/getAssetEx/"], (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
-		const [ prefix, id ] = f.assetId.split(".");
-		console.log(id.slice(0, -4));
-		asset.load(id.slice(0, -4)).then(b => {
-			res.setHeader("Content-Length", b.length);
-			res.setHeader("Content-Type", "audio/mp3");
-			res.end(b);
-		}).catch(e => { res.end(1 + util.xmlFail(e)), console.log(e) });
+		if (!f.assetId.startsWith("a-")) {
+			asset.loadRandom(f.assetId).then(b => {
+				res.setHeader("Content-Length", b.length);
+				res.setHeader("Content-Type", "audio/mp3");
+				res.end(b);
+			}).catch(e => { res.end(1 + util.xmlFail(e)), console.log(e) });
+		} else {
+			const [ prefix, id ] = f.assetId.split(".");
+			console.log(id.slice(0, -4));
+			asset.load(id.slice(0, -4)).then(b => {
+				res.setHeader("Content-Length", b.length);
+				res.setHeader("Content-Type", "audio/mp3");
+				res.end(b);
+			}).catch(e => { res.end(1 + util.xmlFail(e)), console.log(e) });
+		}
 	});
 })
 router.post("/updateAsset/", (req, res) => {
