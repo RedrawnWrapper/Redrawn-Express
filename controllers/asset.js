@@ -133,7 +133,7 @@ router.get(/\/stock_thumbs\/([^/]+)$/, (req, res) => {
 	const file = req.matches[1];
 	get(process.env.THUMB_BASE_URL + '/' + file).then(v => res.end(v)).catch(e => console.log(e));
 })
-router.post(["/goapi/getAsset/","/goapi/getAssetEx/"], (req, res) => {
+router.post(["/getAsset/","/goapi/getAssetEx/"], (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		const [ prefix, id ] = f.assetId.split(".");
 		console.log(id.slice(0, -4));
@@ -144,7 +144,7 @@ router.post(["/goapi/getAsset/","/goapi/getAssetEx/"], (req, res) => {
 		}).catch(e => { res.end(1 + util.xmlFail(e)), console.log(e) });
 	});
 })
-router.post("/goapi/updateAsset/", (req, res) => {
+router.post("/updateAsset/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		const id = f.assetId.slice(0, -4);
 		const origTitle = fs.readFileSync(process.env.META_FOLDER + `/${id}-title.txt`);
@@ -154,7 +154,7 @@ router.post("/goapi/updateAsset/", (req, res) => {
 		fs.writeFileSync(process.env.META_FOLDER + `/${id}-title.txt`, data.title);
 	});
 })
-router.post("/goapi/getUserAssets/", (req, res) => {
+router.post("/getUserAssets/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		switch (f.type) {
 			case "movie": {
@@ -204,7 +204,7 @@ router.post("/goapi/getUserAssets/", (req, res) => {
 		}
 	});
 })
-router.post("/goapi/getUserAssetsXml/", (req, res) => {
+router.post("/getUserAssetsXml/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => listAssets(f)).then((buff) => {
 		res.setHeader("Content-Type", "text/xml");
 		res.end(buff);
@@ -269,7 +269,7 @@ router.post("/upload_asset", (req, res) => {
 		res.end();
 	});
 })
-router.post("/goapi/deleteAsset/", (req, res) => {
+router.post("/deleteAsset/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		var type;
 		const id = f.assetId;
