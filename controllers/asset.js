@@ -65,30 +65,30 @@ function soundXml(v, type) {
 	return `<sound subtype="${type}" id="${v.id}.${ext}" name="${title}" enable="Y" duration="${dur}" downloadtype="progressive"/>`;
 }
 async function listAssets(data) {
-	var xmlString, files;
-	switch (data.type) {
-		case "char": {
-			const chars = await asset.chars(data.themeId);
-			xmlString = `${header}<ugc more="0">${chars.map(v => `<char id="${v.id}" name="Untitled" cc_theme_id="${
-				v.theme
-			}" thumbnail_url="/char_thumbs/${v.id}.png" copyable="Y"><tags/></char>`).join("")}</ugc>`;
-			break;
-		} case "prop": {
-			const assets = asset.list("prop", "png");
-			files = asset.list("prop", "jpg");
-			xmlString = `${header}<ugc more="0">${files.map(v => propXml(v)).join("")}${assets.map(v => propXml(v)).join("")}</ugc>`;
-			break;
-		} case "sound": {
-			files = asset.list("bgmusic", "mp3");
-			const assets = asset.list("soundeffect", "mp3");
-			const sounds = asset.list("voiceover", "mp3");
-			xmlString = `${header}<ugc more="0">${files.map(v => soundXml(v, "bgmusic")).join("")}${
-				assets.map(v => soundXml(v, "soundeffect")).join("")
-			}${sounds.map(v => soundXml(v, "voiceover")).join("")}</ugc>`;
-			break;
-		}	
-	}
-	return Buffer.from(xmlString);	
+	return new Promise((res, rej) => {
+		var xmlString, files;
+		switch (data.type) {
+			case "char": {
+				const chars = await asset.chars(data.themeId);
+				xmlString = `${header}<ugc more="0">${chars.map(v => `<char id="${v.id}" name="Untitled" cc_theme_id="${
+										v.theme
+									}" thumbnail_url="/char_thumbs/${v.id}.png" copyable="Y"><tags/></char>`).join("")}</ugc>`;
+				break;
+			} case "prop": {
+				const assets = asset.list("prop", "png");
+				files = asset.list("prop", "jpg");
+				xmlString = `${header}<ugc more="0">${files.map(v => propXml(v)).join("")}${assets.map(v => propXml(v)).join("")}</ugc>`;
+				break;
+			} case "sound": {
+				files = asset.list("bgmusic", "mp3");
+				const assets = asset.list("soundeffect", "mp3");
+				const sounds = asset.list("voiceover", "mp3");
+				xmlString = `${header}<ugc more="0">${files.map(v => soundXml(v, "bgmusic")).join("")}${assets.map(v => soundXml(v, "soundeffect")).join("")}${sounds.map(v => soundXml(v, "voiceover")).join("")}</ugc>`;
+				break;
+			}	
+		}
+		res(Buffer.from(xmlString));	
+	});
 }
 function convertVideoToFlv(ut, type, _ext, _buffer, subtype, filepath) {
 	const files = {};
@@ -205,10 +205,12 @@ router.post("/getUserAssets/", (req, res) => {
 	});
 })
 router.post("/getUserAssetsXml/", (req, res) => {
-	new formidable.IncomingForm().parse(req, (e, f) => listAssets(f)).then((buff) => {
-		res.setHeader("Content-Type", "text/xml");
-		res.end(buff);
-	}).catch(e => { res.end(1 + util.assetFail(e)), console.log(e) });
+	new formidable.IncomingForm().parse(req, (e, f) => {
+		listAssets(f).then((buff) => {
+			res.setHeader("Content-Type", "text/xml");
+			res.end(buff);
+		}).catch(e => { res.end(1 + util.assetFail(e)), console.log(e) });
+	});
 })
 router.post("/upload_asset", (req, res) => {
 	formidable().parse(req, (_, fields, files) => {
