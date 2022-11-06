@@ -36,7 +36,7 @@ exports.save = function(starterZip, thumb, mId) {
 		const thumbFile = fUtil.getFileIndex('starter-', '.png', sId);
 		fs.writeFileSync(thumbFile, thumb);
 		let writeStream = fs.createWriteStream(path);
-		parse.unpackZip(zip, thumb).then(data => {
+		parse.unpackMovie(zip, thumb).then(data => {
 			writeStream.write(data, () => {
 				writeStream.close();
 				this.meta("s-" + sId).then(m => {
