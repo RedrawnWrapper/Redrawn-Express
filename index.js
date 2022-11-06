@@ -7,9 +7,11 @@ const fs = require("fs")
 Object.assign(process.env, require("./env"), require("./config"));
 const movie_thumb = require("./middlewares/movie_thumb");
 const asset_thumb = require("./middlewares/asset_thumb");
+const char_thumb = require("./middlewares/char_thumb");
+const char = require("./middlewares/char");
 const movie = require("./middlewares/movie");
 const asset = require("./middlewares/asset");
-const utilities = [movie_thumb, asset_thumb, movie, asset];
+const utilities = [movie_thumb, asset_thumb, char_thumb, char, movie, asset];
 
 // app functions
 app.use(require("./controllers"))

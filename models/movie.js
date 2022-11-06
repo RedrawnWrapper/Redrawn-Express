@@ -86,6 +86,9 @@ exports.loadThumb = function(movieId) {
 			} case "s": {
 				fn = fUtil.getFileIndex("starter-", ".png", id);
 				break;
+			} case "c": {
+				fn = fUtil.getFileIndex("char-", ".png", id);
+				break;
 			}
 		}
 		isNaN(id) ? rej("Error: Thumb Not Found") : res(fs.readFileSync(fn));
