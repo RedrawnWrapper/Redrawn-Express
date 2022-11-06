@@ -332,7 +332,7 @@ exports.packMovie = async function(xmlBuffer) {
 	}
 
 	const themeKs = Object.keys(themes);
-	themeKs.forEach(t => {
+	themeKs.forEach(async t => {
 		if (t == 'ugc') return;
 		const file = await get(`${store}/${t}/theme.xml`);
 		fUtil.addToZip(zip, `${t}.xml`, file);
