@@ -18,11 +18,6 @@ function toParamString(table) {
 		.map((key) => `<param name="${key}" value="${toAttrString(table[key])}">`)
 		.join(" ");
 }
-function toObjString(table) {
-	return Object.keys(table)
-		.map((key) => `${toAttrString(table[key])}`)
-		.join(" ");
-}
 function toObjectString(attrs, params) {
 	return `<object id="obj" ${Object.keys(attrs)
 		.map((key) => `${key}="${attrs[key].replace(/"/g, '\\"')}"`)
@@ -191,7 +186,19 @@ router.get("/player", (req, res) => {
 })
 router.get("/test/aniPlayer", (req, res) => {
 	const p = url.parse(req.url, true);
+	attrs = {
+		data: p.query.swfUrl,
+		type: "application/x-shockwave-flash",
+		width: "100%",
+		height: "100%"
+	};
+	params = {
+		flashvars: {
+			vURL: p.query.fileUrl
+		},
+		allowScriptAccess: "always"
+	};
 	res.setHeader("Content-Type", "text/html; charset=utf8");
-	res.send(`<body style="margin:0px"><object id="obj" data="https://lightspeed.anistick.com/vp.swf" type="application/x-shockwave-flash" width="100%" height="100%"><param name="flashvars" value="vURL=${toParamString(p.query.fileUrl)}"> <param name="allowScriptAccess" value="always"></object></body>`);
+	res.send(`<body style="margin:0px">${toObjectString(attrs, params)}</body>`);
 })
 module.exports = router;
