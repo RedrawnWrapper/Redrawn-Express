@@ -13,7 +13,7 @@ const express = require("express"),
       mp3Duration = require("mp3-duration"),
       tempfile = require("tempfile"),
       ffmpeg = require("fluent-ffmpeg"),
-      get = require("../modules/get")
+      get = require("../models/get")
 ffmpeg.setFfmpegPath(require("@ffmpeg-installer/ffmpeg").path);
 ffmpeg.setFfprobePath(require("@ffprobe-installer/ffprobe").path);
 function movieXml(v) {
