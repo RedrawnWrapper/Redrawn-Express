@@ -135,6 +135,14 @@ exports.save = function(_ut, type, ext, buffer, subtype) {
 		res(id);
 	});
 };
+exports.saveRandom = function(_ut, type, ext, buffer, subtype) {
+	return new Promise(res => {
+		var id = fUtil.generateId();
+		var path = `${process.env.ASSETS_FOLDER}/${id}.${ext}`;
+		fs.writeFileSync(path, buffer);
+		res(id);
+	});
+};
 exports.saveStream = function(_ut, type, ext, buffer, subtype) {
 	var id;
 	if (type != "sound") {
