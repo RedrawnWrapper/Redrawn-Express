@@ -87,7 +87,9 @@ exports.load = function(aId, ext) {
 	});
 };
 exports.loadRandom = function(aId) {
-	return fs.readFileSync(process.env.ASSETS_FOLDER + '/' + aId);
+	return new Promise((res, rej) => {
+		res(fs.readFileSync(process.env.ASSETS_FOLDER + '/' + aId));
+	});
 };
 exports.delete = function(id, type) {
 	const n = Number.parseInt(id.substr(2));
