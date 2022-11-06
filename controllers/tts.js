@@ -2,7 +2,8 @@ const express = require("express"),
       router = express.Router(),
       loadPost = require("../models/body"),
       mp3Duration = require('mp3-duration'),
-      voices = require('../models/tts').voices,
+      info = require('../models/tts'),
+      voices = info..voices,
       asset = require('../models/asset'),
       get = require('../models/get'),
       qs = require('querystring'),
@@ -11,7 +12,7 @@ const express = require("express"),
       base64 = require("js-base64"),
       https = require('https'),
       http = require('http'),
-      voice = voices, langs = {}
+      voice = info.voices, langs = {}
 
 function processVoice(voiceName, text) {
 	return new Promise((res, rej) => {
