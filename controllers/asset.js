@@ -120,7 +120,7 @@ function convertVideoToFlv(ut, type, _ext, _buffer, subtype, filepath) {
  * @param {import("url").UrlWithParsedQuery} url
  * @returns {boolean}
  */
-router.post(["/getAsset/","/goapi/getAssetEx/"], (req, res) => {
+router.post(["/getAsset/","/getAssetEx/"], (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		const [ prefix, id ] = f.assetId.split(".");
 		console.log(id.slice(0, -4));
