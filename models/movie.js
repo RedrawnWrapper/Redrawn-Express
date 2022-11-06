@@ -77,10 +77,18 @@ exports.loadXml = function(movieId) {
 };
 exports.loadThumb = function(movieId) {
 	return new Promise(async (res, rej) => {
-		if (!movieId.startsWith("m-")) return;
-		const n = Number.parseInt(movieId.substr(2));
-		const fn = fUtil.getFileIndex("thumb-", ".png", n);
-		isNaN(n) ? rej() : res(fs.readFileSync(fn));
+		const [ preifx, id ] = movieId.split("-");
+		var fn;
+		switch (preifx) {
+			case "m": {
+				fn = fUtil.getFileIndex("thumb-", ".png", id);
+				break;
+			} case "s": {
+				fn = fUtil.getFileIndex("starter-", ".png", id);
+				break;
+			}
+		}
+		isNaN(id) ? rej("Error: Thumb Not Found") : res(fs.readFileSync(fn));
 	});
 };
 exports.list = function() {

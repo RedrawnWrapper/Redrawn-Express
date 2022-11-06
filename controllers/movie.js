@@ -9,57 +9,6 @@ const express = require("express"),
       starter = require("../models/starter"),
       url = require("url")
 
-router.get("/movieList", (req, res) => Promise.all(movie.list().map(movie.meta)).then((a) => res.end(JSON.stringify(a))));
-router.get("/meta", (req, res) => {
-	const p = url.parse(req.url, true);
-	movie.meta(p.path.substr(p.path.lastIndexOf("/") + 1)).then((v) => res.end(JSON.stringify(v))).catch(e => {
-		res.statusCode = 404;
-		console.log(e);
-		res.end(e);
-	});
-})
-router.get(/\/movie_thumbs\/([^/]+)$/, (req, res) => {
-	const file = req.matches[1];
-	movie.loadThumb(file).then((v) => {
-		res.setHeader("Content-Type", "image/png");
-		res.statusCode = 200;
-		res.end(v);
-	}).catch(e => {
-		res.statusCode = 400;
-		console.log(e);
-		res.end(e);
-	});
-})
-router.get(/\/movies\/([^.]+)(?:\.(zip|xml))?$/, (req, res) => {
-	var id = req.matches[1];
-	var ext = req.matches[2];
-	switch (ext) {
-		case "zip":
-			res.setHeader("Content-Type", "application/zip");
-			movie.loadZip(id).then((v) => {
-				if (v) {
-					res.statusCode = 200;
-					res.end(v);
-				} else {
-					res.statusCode = 404;
-					res.end();
-				}
-			});
-			break;
-		default:
-			res.setHeader("Content-Type", "text/xml");
-			movie.loadXml(id).then((v) => {
-				if (v) {
-					res.statusCode = 200;
-					res.end(v);
-				} else {
-					res.statusCode = 404;
-					res.end();
-				}
-			});
-			break;
-	}
-})
 router.post("/upload_movie", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f, files) => {
 		if (!files.import) return;

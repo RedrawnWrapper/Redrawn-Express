@@ -27,25 +27,33 @@ exports.meta = function(sId) {
 		});
 	});
 };
-exports.save = function(starterZip, thumb, mId) {
-	return new Promise((res, rej) => {
-		const zip = nodezip.unzip(starterZip);
-		var sId = fUtil.getNextFileId('starter-', '.xml');
-		if (mId) sId = mId;
-		let path = fUtil.getFileIndex('starter-', '.xml', sId);
-		const thumbFile = fUtil.getFileIndex('starter-', '.png', sId);
-		fs.writeFileSync(thumbFile, thumb);
-		let writeStream = fs.createWriteStream(path);
-		parse.unpackMovie(zip, thumb).then(data => {
-			writeStream.write(data, () => {
-				writeStream.close();
-				this.meta("s-" + sId).then(m => {
-					fs.writeFileSync(process.env.META_FOLDER + `/${m.id}-tag.txt`, m.tags);
-					fs.writeFileSync(process.env.META_FOLDER + `/${m.id}-title.txt`, m.title);
-					res(m.id);
-				}).catch(e => rej(e));
-			});
-		}).catch(e => rej(e));
+exports.save = function(starterZip, thumb, id) {
+	return new Promise(async (res, rej) => {
+		if (!id) id = `s-${fUtil.getNextFileId("starter-", ".xml")}`;
+		// Saves the thumbnail of the respective video.
+		if (thumb && id.startsWith("s-")) {
+			const n = Number.parseInt(id.substr(2));
+			const thumbFile = fUtil.getFileIndex("starter-", ".png", n);
+			fs.writeFileSync(thumbFile, thumb);
+		}
+		var i = id.indexOf("-");
+		var prefix = id.substr(0, i);
+		var suffix = id.substr(i + 1);
+		var zip = nodezip.unzip(starterZip);
+		if (prefix == "s") {
+			var path = fUtil.getFileIndex("starter-", ".xml", suffix);
+			var writeStream = fs.createWriteStream(path);
+			parse.unpackMovie(zip, thumb).then((data) => {
+				writeStream.write(data, () => {
+					writeStream.close();
+					this.meta(id).then(m => {
+						fs.writeFileSync(process.env.META_FOLDER + `/${m.id}-tag.txt`, m.tags);
+						fs.writeFileSync(process.env.META_FOLDER + `/${m.id}-title.txt`, m.title);
+					}).catch(e => rej(e));
+					res(id);
+				});
+			}).catch(e => rej(e));		
+		}
 	});
 };
 exports.delete = function(sId) {

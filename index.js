@@ -5,6 +5,8 @@ const url = require("url")
 const fs = require("fs")
 
 Object.assign(process.env, require("./env"), require("./config"));
+const movie_thumb = require("./middlewares/movie_thumb");
+const utilities = [movie_thumb];
 
 // app functions
 app.use(require("./controllers"))
@@ -12,6 +14,7 @@ app.use(require("morgan")("dev"))
 const stuff = require("./models/page");
 app.use((req, res) => {
 	const p = url.parse(req.url, true);
+	utilities.find(f => f(req, res, p));
 	var methodLinks = stuff[req.method];
 	for (let linkIndex in methodLinks) {
 		var regex = new RegExp(linkIndex);

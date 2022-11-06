@@ -21,7 +21,7 @@ function movieXml(v) {
 	const tag = fs.readFileSync(process.env.META_FOLDER + `/${v.id}-tag.txt`, 'utf8');
 	return `<movie id="${v.id}" enc_asset_id="${v.id}" path="/_SAVED/${v.id}" numScene="1" title="${
 		title
-	}" thumbnail_url="/starter_thumbs/${v.id}.png"><tags>${tag}</tags></movie>`;
+	}" thumbnail_url="/movie_thumbs/${v.id}.png"><tags>${tag}</tags></movie>`;
 }
 function propXml(v) {
 	const title = fs.readFileSync(process.env.META_FOLDER + `/${v.id}-title.txt`, 'utf8');
