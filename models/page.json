@@ -12,7 +12,7 @@
 				"Content-Type": "text/html; charset=utf8"
 			},
 			"statusCode": 302,
-			"content": "Hello, Anistick Studio is currently in beta. i know that its dead lol, but i just felt like trying something new. <br><br><center><a href='/html/list.html'>Your Videos</a> | <a href='https://anistick.com'>Normal Anistick Website</a>"
+			"content": "Hello, Anistick Studio is currently in beta. we know that its dead lol, but joseph the animator#2292 just felt like trying something new. <br><br><center><a href='/html/list.html'>Your Videos</a> | <a href='https://anistick.com'>Normal Anistick Website</a>"
 		},
 		"/goapi/getAssetTags": {
 			"headers": {
