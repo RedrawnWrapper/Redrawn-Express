@@ -1,14 +1,17 @@
-const loadPost = require('../models/body');
-const mp3Duration = require('mp3-duration');
-const voices = require('../models/tts').voices;
-const asset = require('../models/asset');
-const get = require('../models/get');
-const qs = require('querystring');
-const brotli = require('brotli');
-const md5 = require("js-md5");
-const base64 = require("js-base64");
-const https = require('https');
-const http = require('http');
+const express = require("express"),
+      router = express.Router(),
+      loadPost = require("../models/body"),
+      mp3Duration = require('mp3-duration'),
+      voices = require('../models/tts').voices,
+      asset = require('../models/asset'),
+      get = require('../models/get'),
+      qs = require('querystring'),
+      brotli = require('brotli'),
+      md5 = require("js-md5"),
+      base64 = require("js-base64"),
+      https = require('https'),
+      http = require('http'),
+      voice = voices, langs = {}
 
 function processVoice(voiceName, text) {
 	return new Promise((res, rej) => {
@@ -470,18 +473,46 @@ function processVoice(voiceName, text) {
 	});
 }
 
-module.exports = function (req, res, url) {
-	if (req.method != 'POST' || url.path != '/convertTextToSoundAsset/') return;
+Object.keys(voice).forEach(i => {
+	const v = voice[i], l = v.language;
+	langs[l] = langs[l] || [];
+	langs[l].push(`<voice id="${i}" desc="${v.desc}" sex="${v.gender}" demo-url="" country="${v.country}" plus="N"/>`);
+})
+
+const xml = `${process.env.XML_HEADER}<voices>${
+	Object.keys(langs).sort().map(i => {
+		const v = langs[i], l = info.languages[i];
+		return `<language id="${i}" desc="${l}">${v.join('')}</language>`;
+	}).join('')}</voices>`;
+
+router.post('/convertTextToSoundAsset/', (req, res) => {
 	loadPost(req, res).then(data => {
 		processVoice(data.voice, data.text).then(buffer => {
-			mp3Duration(buffer, (e, duration) => {
-				if (e || !duration) return res.end(1 + process.env.FAILURE_XML);
-
-				const title = `[${voices[data.voice].desc}] ${data.text}`;
-				asset.save(buffer, data.presaveId, '-tts.mp3');
-				res.end(`0<response><asset><id>${id}</id><enc_asset_id>${id}</enc_asset_id><type>sound</type><subtype>tts</subtype><title>${title}</title><published>0</published><tags></tags><duration>${1e3 * duration}</duration><downloadtype>progressive</downloadtype><file>${id}</file></asset></response>`)
+			mp3Duration(buffer, (e, d) => {
+				var dur = d * 1e3;
+				if (e || !dur) {
+					res.end(1 + util.xmlFail("Unable to retrieve MP3 stream."));
+					return true;
+				} else {
+					const title = `[${voices[data.voice].desc}] ${data.text}`;
+					asset.save(data.ut, "sound", "mp3", buffer, "tts").then(id => {
+						asset.createMeta(id, `t-${id}.mp3`, "sound", "tts", dur);
+						res.end(`0<response><asset><id>${id}.mp3</id><enc_asset_id>${
+							id
+						}.mp3</enc_asset_id><type>sound</type><subtype>tts</subtype><title>${
+							title
+						}</title><published>0</published><tags></tags><duration>${
+							dur
+						}</duration><downloadtype>progressive</downloadtype><file>${id}.mp3</file></asset></response>`);
+					}).catch(e => {
+						console.log(e);
+						res.end(1 + util.xmlFail(e));
+					});
+				}
 			});
 		});
 	});
-	return true;
-}
+})
+router.post('/getTextToSpeechVoices/', (req, res) => { res.setHeader('Content-Type', 'text/html; charset=UTF-8'), res.end(xml) })
+
+module.exports = router;
