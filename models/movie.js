@@ -24,8 +24,7 @@ exports.save = function(movieZip, thumb, mId) {
 			case "m": {
 				var path = fUtil.getFileIndex("movie-", ".xml", suffix);
 				var writeStream = fs.createWriteStream(path);
-				var assetBuffers = caché.loadTable(id);
-				parse.unpackMovie(zip, thumb, assetBuffers).then((data) => {
+				parse.unpackMovie(zip, thumb).then((data) => {
 					writeStream.write(data, () => {
 						writeStream.close();
 						res(id);
