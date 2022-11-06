@@ -120,19 +120,6 @@ function convertVideoToFlv(ut, type, _ext, _buffer, subtype, filepath) {
  * @param {import("url").UrlWithParsedQuery} url
  * @returns {boolean}
  */
-router.get(/\/assets\/([^/]+)\/([^/]+)$/, (req, res) => {
-	const type = req.matches[1];
-	const aId = req.matches[2];
-	const dot = aId.lastIndexOf(".");
-	const ext = aId.substr(dot + 1);
-	asset.loadOnGetRequest(type, aId, ext).then(b => res.end(b)).catch(e => { 
-		console.log(e), res.end(`<center><h1>${e || "404 Not Found"}</h1></center>`)
-	});
-})
-router.get(/\/stock_thumbs\/([^/]+)$/, (req, res) => {
-	const file = req.matches[1];
-	get(process.env.THUMB_BASE_URL + '/' + file).then(v => res.end(v)).catch(e => console.log(e));
-})
 router.post(["/getAsset/","/goapi/getAssetEx/"], (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		const [ prefix, id ] = f.assetId.split(".");
