@@ -19,17 +19,17 @@ module.exports = function (req, res, url) {
 	var redirect;
 	switch (mode) {
 		case "/copy": {
-			redirect = `/cc?themeId=${theme}&original_asset_id=${id.substr(1)}`;
+			redirect = `/app/cc?themeId=${theme}&original_asset_id=${id.substr(1)}`;
 			break;
 		}
 		default: {
 			var type = url.query.type || defaultTypes[theme] || "";
-			redirect = `/cc?themeId=${theme}&bs=${type}`;
+			redirect = `/app/cc?themeId=${theme}&bs=${type}`;
 			break;
 		}
 	}
-	res.setHeader("Location", redirect);
 	res.statusCode = 302;
+	res.setHeader("Location", redirect);
 	res.end();
 	return true;
 };
