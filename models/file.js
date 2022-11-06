@@ -3,6 +3,13 @@ const folder = process.env.SAVED_FOLDER,
       nodezip = require("node-zip"),
       fs = require("fs")
 
+/**
+ * @summary generates a random id
+ * @returns {string}
+ */
+exports.generateId = function() {
+	return Math.random().toString(16).substr(2, 9);
+};
 exports.padZero = function(n, l = process.env.FILE_NUM_WIDTH) {
 	return ("" + n).padStart(l, "0");
 };
