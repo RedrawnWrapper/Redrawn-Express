@@ -64,8 +64,8 @@ function soundXml(v, type) {
 	const dur = durMetaFile.substr(dot + 1);
 	return `<sound subtype="${type}" id="${v.id}.${ext}" name="${title}" enable="Y" duration="${dur}" downloadtype="progressive"/>`;
 }
-async function listAssets(data) {
-	return new Promise((res, rej) => {
+function listAssets(data) {
+	return new Promise(async res => {
 		var xmlString, files;
 		switch (data.type) {
 			case "char": {
