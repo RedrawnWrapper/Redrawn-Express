@@ -1,9 +1,9 @@
 const express = require("express"),
       router = express.Router(),
       base = Buffer.alloc(1, 0),
-      movie = require("./main"),
+      movie = require("../models/movie"),
       http = require("http"),
-      get = require("../request/get"),
+      get = require("../models/get"),
       formidable = require("formidable"),
       starter = require("../models/starter"),
       url = require("url")
