@@ -5,6 +5,7 @@ const express = require("express"),
       http = require("http"),
       get = require("../models/get"),
       formidable = require("formidable"),
+      loadPost = require("../models/body"),
       starter = require("../models/starter"),
       url = require("url")
 
@@ -80,19 +81,19 @@ router.post("/getMovie/", (req, res) => {
 	movie.loadZip(p.query.movieId).then((b) => res.end(Buffer.concat([base, b]))).catch(e => { console.log(e), res.end("1" + e) });
 })
 router.post("/saveMovie/", (req, res) => {
-	new formidable.IncomingForm().parse(req, (e, f) => {
+	loadPost(req, res).then(data => {
 		get(process.env.THUMB_BASE_URL + '/274502704.jpg').then(t => {
-			const body = Buffer.from(f.body_zip, "base64"),
-			      thumb = !f.thumbnail ? t : Buffer.from(f.thumbnail, "base64")
-			movie.save(body, thumb, f.presaveId).then(id => res.end(0 + id)).catch(e => console.log(e));
+			const body = Buffer.from(data.body_zip, "base64"),
+			      thumb = !data.thumbnail ? t : Buffer.from(data.thumbnail, "base64")
+			movie.save(body, thumb, data.movieId).then(id => res.end(0 + id)).catch(e => console.log(e));
 		}).catch(e => console.log(e));
 	});
 })
 router.post("/saveTemplate/", (req, res) => {
-	new formidable.IncomingForm().parse(req, (e, f) => {
-		const body = Buffer.from(f.body_zip, "base64"),
-		      thumb = Buffer.from(f.thumbnail, "base64")
-		starter.save(body, thumb, f.movieId).then(id => res.end(0 + id)).catch(e => console.log(e));
+	loadPost(req, res).then(data => {
+		const body = Buffer.from(data.body_zip, "base64"),
+		      thumb = Buffer.from(data.thumbnail, "base64")
+		starter.save(body, thumb, data.movieId).then(id => res.end(0 + id)).catch(e => console.log(e));
 	});
 })
 
