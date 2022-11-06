@@ -84,7 +84,8 @@ router.post("/saveMovie/", (req, res) => {
 	get(process.env.THUMB_BASE_URL + '/274502704.jpg').then(t => {
 		const body = Buffer.from(req.body.body_zip, "base64"),
 		      thumb = !req.body.thumbnail ? t : Buffer.from(req.body.thumbnail, "base64")
-		movie.save(body, thumb, req.body.movieId).then(id => res.end(0 + id)).catch(e => console.log(e));
+		const id = movie.save(body, thumb, req.body.movieId);
+		res.end(0 + id);
 	}).catch(e => console.log(e));
 })
 router.post("/saveTemplate/", (req, res) => {
