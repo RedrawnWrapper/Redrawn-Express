@@ -14,27 +14,25 @@ exports.save = function(movieZip, thumb, mId) {
 		fs.writeFileSync(thumbFile, thumb);
 	}
 
-	return new Promise(async (res, rej) => {
-		caché.transfer(mId, id);
-		var i = id.indexOf("-");
-		var prefix = id.substr(0, i);
-		var suffix = id.substr(i + 1);
-		var zip = nodezip.unzip(movieZip);
-		switch (prefix) {
-			case "m": {
-				var path = fUtil.getFileIndex("movie-", ".xml", suffix);
-				var writeStream = fs.createWriteStream(path);
-				parse.unpackMovie(zip, thumb).then((data) => {
-					writeStream.write(data, () => {
-						writeStream.close();
-						res(id);
-					});
+	caché.transfer(mId, id);
+	var i = id.indexOf("-");
+	var prefix = id.substr(0, i);
+	var suffix = id.substr(i + 1);
+	var zip = nodezip.unzip(movieZip);
+	switch (prefix) {
+		case "m": {
+			var path = fUtil.getFileIndex("movie-", ".xml", suffix);
+			var writeStream = fs.createWriteStream(path);
+			parse.unpackMovie(zip, thumb).then((data) => {
+				writeStream.write(data, () => {
+					writeStream.close();
+					return id;
 				});
-				break;
-			}
-			default: rej("Error: Movie Saving Has Failed.");
+			});
+			break;
 		}
-	});
+		default: console.log("Error: Movie Saving Has Failed.");
+	}
 };
 exports.loadZip = function(mId) {
 	return new Promise((res, rej) => {
