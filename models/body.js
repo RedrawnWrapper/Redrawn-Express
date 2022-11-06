@@ -1,15 +1,15 @@
-const qs = require('querystring');
-
 /**
  * @param {boolean} parse
  */
-module.exports = function (req, res) {
-	return new Promise((resolve, rej) => {
-		var data = '';
-		req.on('data', v => {
-			data += v;
+ module.exports = function (req, res) {
+	return new Promise((res, rej) => {
+		var data = "";
+		var pData;
+
+		req.on("data", v => {
+			data += v
 			if (data.length > 1e10) {
-				data = '';
+				data = "";
 				res.writeHead(413);
 				res.end();
 				req.connection.destroy();
@@ -17,6 +17,14 @@ module.exports = function (req, res) {
 			}
 		});
 
-		req.on('end', () => resolve(qs.parse(data)));
+		req.on("end", () => {
+			try {
+				pData = JSON.parse(data.toString());
+			} catch (e) {
+				const params = new URLSearchParams(data.toString());
+				pData = Object.fromEntries(params);
+			}
+			res(pData)
+		});
 	});
 }

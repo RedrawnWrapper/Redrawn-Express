@@ -1,38 +1,33 @@
-const caché = require("./caché"),
-      fUtil = require("./file"),
+const fUtil = require("./file"),
+      caché = require("./caché")
       nodezip = require("node-zip"),
       parse = require("./parse"),
       fs = require("fs")
 
-exports.save = function(movieZip, thumb, mId) {
-	// Saves the thumbnail of the respective video.
-	if (!mId) mId = `m-${fUtil.getNextFileId("movie-", ".xml")}`;
-	var id = mId;
-	if (thumb && id.startsWith("m-")) {
-		const n = Number.parseInt(id.substr(2));
-		const thumbFile = fUtil.getFileIndex("thumb-", ".png", n);
-		fs.writeFileSync(thumbFile, thumb);
-	}
-
-	caché.transfer(mId, id);
-	var i = id.indexOf("-");
-	var prefix = id.substr(0, i);
-	var suffix = id.substr(i + 1);
-	var zip = nodezip.unzip(movieZip);
-	switch (prefix) {
-		case "m": {
+exports.save = function(movieZip, thumb, id) {
+	return new Promise(async (res, rej) => {
+		if (!id) id = `m-${fUtil.getNextFileId("movie-", ".xml")}`;
+		// Saves the thumbnail of the respective video.
+		if (thumb && id.startsWith("m-")) {
+			const n = Number.parseInt(id.substr(2));
+			const thumbFile = fUtil.getFileIndex("thumb-", ".png", n);
+			fs.writeFileSync(thumbFile, thumb);
+		}
+		var i = id.indexOf("-");
+		var prefix = id.substr(0, i);
+		var suffix = id.substr(i + 1);
+		var zip = nodezip.unzip(movieZip);
+		if (prefix == "m") {
 			var path = fUtil.getFileIndex("movie-", ".xml", suffix);
 			var writeStream = fs.createWriteStream(path);
 			parse.unpackMovie(zip, thumb).then((data) => {
 				writeStream.write(data, () => {
 					writeStream.close();
-					return id;
+					res(id);
 				});
-			});
-			break;
+			}).catch(e => rej(e));		
 		}
-		default: console.log("Error: Movie Saving Has Failed.");
-	}
+	});
 };
 exports.loadZip = function(mId) {
 	return new Promise((res, rej) => {

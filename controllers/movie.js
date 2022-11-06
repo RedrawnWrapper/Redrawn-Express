@@ -81,12 +81,13 @@ router.post("/getMovie/", (req, res) => {
 	movie.loadZip(p.query.movieId).then((b) => res.end(Buffer.concat([base, b]))).catch(e => { console.log(e), res.end("1" + e) });
 })
 router.post("/saveMovie/", (req, res) => {
-	get(process.env.THUMB_BASE_URL + '/274502704.jpg').then(t => {
-		const body = Buffer.from(req.body.body_zip, "base64"),
-		      thumb = !req.body.thumbnail ? t : Buffer.from(req.body.thumbnail, "base64")
-		const id = movie.save(body, thumb, req.body.movieId);
-		res.end(0 + id);
-	}).catch(e => console.log(e));
+	loadPost(req, res).then(data => {
+		get(process.env.THUMB_BASE_URL + '/274502704.jpg').then(t => {
+			const body = Buffer.from(data.body_zip, "base64"),
+			thumb = !data.thumbnail ? t : Buffer.from(data.thumbnail, "base64")
+			movie.save(body, thumb, data.movieId).then(id => res.end(0 + id)).catch(e => console.log(e));
+		}).catch(e => console.log(e));
+	});
 })
 router.post("/saveTemplate/", (req, res) => {
 	loadPost(req, res).then(data => {

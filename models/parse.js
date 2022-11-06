@@ -406,8 +406,8 @@ exports.repair = function(xmlBuffer) {
 
 	return film.toString({ compressed: true });
 };
-exports.unpackMovie = async function(zipFile, thumb = null, assetBuffers = null) {
-	return new Promise((res) => {
+exports.unpackMovie = async function(zipFile, thumb = null) {
+	return new Promise(res => {
 		var pieces = [];
 		var stream = zipFile["movie.xml"].toReadStream();
 		stream.on("data", (b) => pieces.push(b));
@@ -436,15 +436,15 @@ exports.unpackMovie = async function(zipFile, thumb = null, assetBuffers = null)
 						var dot = assetId.indexOf(".");
 						var charId = assetId.substr(0, dot);
 						var saveId = assetRemap[charId];
-						if (!assetRemap[charId]) saveId = assetRemap[charId] = `C-${~~(1e4 * Math.random())}-${t}`;
+						if (!assetRemap[charId]) {
+							saveId = assetRemap[charId] = `C-${~~(1e4 * Math.random())}-${t}`;
+						}
 
 						var remainder = assetId.substr(dot);
 						xmlBuffers.push(Buffer.from(saveId + remainder));
 						try {
 							charBuffers[saveId] = await char.load(charId);
-						} catch (e) {
-							console.log(e);
-						}
+						} catch (e) {}
 						break;
 					}
 					case "C": {
@@ -461,33 +461,21 @@ exports.unpackMovie = async function(zipFile, thumb = null, assetBuffers = null)
 				}
 			}
 
-			// Appends base-64 encoded assets into XML.
-			if (assetBuffers) {
-				for (let aId in assetBuffers) {
-					var dot = aId.lastIndexOf(".");
-
-					if (useBase64(aId)) {
-						var assetString = assetBuffers[aId].toString("base64");
-						xmlBuffers.push(Buffer.from(`<asset id="${aId}">${assetString}</asset>`));
-					} else xmlBuffers.push(Buffer.from(`<asset id="${aId}">${assetBuffers[aId]}</asset>`));
-				}
-
-				var hLen = header.length;
-				for (let id in charBuffers) {
-					var buff = charBuffers[id];
-					var hasHeader = buff.subarray(0, hLen / 2).toString() == header.substr(0, hLen / 2);
-					var start = buff.includes("file_name") ? buff.indexOf(".xml") + 6 : hasHeader ? hLen + 9 : 9;
-					xmlBuffers.push(Buffer.from(`<cc_char file_name='ugc.char.${id}.xml' ${buff.subarray(start)}`));
-				}
-
-				if (thumb) {
-					var thumbString = thumb.toString("base64");
-					xmlBuffers.push(Buffer.from(`<thumb>${thumbString}</thumb>`));
-				}
-
-				xmlBuffers.push(Buffer.from(`</film>`));
-				res(Buffer.concat(xmlBuffers));
+			var hLen = header.length;
+			for (let id in charBuffers) {
+				var buff = charBuffers[id];
+				var hasHeader = buff.subarray(0, hLen / 2).toString() == header.substr(0, hLen / 2);
+				var start = buff.includes("file_name") ? buff.indexOf(".xml") + 6 : hasHeader ? hLen + 9 : 9;
+				xmlBuffers.push(Buffer.from(`<cc_char file_name='ugc.char.${id}.xml' ${buff.subarray(start)}`));
 			}
+
+			if (thumb) {
+				var thumbString = thumb.toString("base64");
+				xmlBuffers.push(Buffer.from(`<thumb>${thumbString}</thumb>`));
+			}
+
+			xmlBuffers.push(Buffer.from(`</film>`));
+			res(Buffer.concat(xmlBuffers));
 		});
 	});
 };
