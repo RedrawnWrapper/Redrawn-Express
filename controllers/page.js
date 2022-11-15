@@ -113,7 +113,8 @@ router.get("/cc_browser", (req, res) => {
 })
 router.get("/go_full", (req, res) => {
 	const p = url.parse(req.url, true);
-	if (p.query.tray == "zimmertwins") {
+	const query = p.query;
+	if (query.tray == "zimmertwins") {
 		var prefix;
 		if (req.headers.host == "localhost" && req.headers.host == `localhost:${process.env.port}`) prefix = "http";
 		else prefix = "https";
@@ -121,7 +122,6 @@ router.get("/go_full", (req, res) => {
 		  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/'; 
 		}</script></head><body onload="redirect()"></body></html>`);
 	} else {
-		const query = p.query;
 		title = "Video Editor";
 		attrs = {
 			data: process.env.SWF_URL + `/go_full${query.v || ""}.swf`,
