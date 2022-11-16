@@ -1,0 +1,8 @@
+node_modules/*/node_modules
+node_modules/*
+_CACHÉ/*
+_SAVED/*
+_ASSETS/*
+!_*/_NO_REMÖVE
+installed
+notinstalled

@@ -11,7 +11,7 @@ const express = require("express"),
  * @param {import("url").UrlWithParsedQuery} url
  * @returns {boolean}
  */
-router.post("/getThemeList/", (req, res) => {
+router.post(["/getThemeList/","/getThemeList/?"], (_req, res) => {
   res.setHeader("Content-Type", "application/zip");
   fUtil.makeZip(`${folder}/_themelist.xml`, "themelist.xml").then((b) => res.send(b)).catch(e => console.log(e))
 })
