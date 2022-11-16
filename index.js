@@ -5,12 +5,14 @@ const url = require("url")
 const fs = require("fs")
 
 Object.assign(process.env, require("./env"), require("./config"));
+// middlewares
 const asset_thumb = require("./middlewares/asset_thumb");
+const theme = require("./middlewares/theme");
 const movie = require("./middlewares/movie");
 const asset = require("./middlewares/asset");
 const char = require("./middlewares/char");
 const file = require("./middlewares/file");
-const utilities = [asset_thumb, movie, asset, char, file];
+const utilities = [asset_thumb, theme, movie, asset, char, file];
 
 // app functions
 app.use(require("./controllers"))
