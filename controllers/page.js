@@ -119,7 +119,7 @@ router.get("/go_full", (req, res) => {
 		if (req.headers.host == "localhost" && req.headers.host == `localhost:${process.env.port}`) prefix = "http";
 		else prefix = "https";
 		res.send(`<html><head><script>function redirect() { 
-		  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/'; 
+		  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/html/homepage.html'; 
 		}</script></head><body onload="redirect()"></body></html>`);
 	} else {
 		title = "Video Editor";
