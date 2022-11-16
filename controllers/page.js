@@ -116,14 +116,13 @@ router.get("/go_full", (req, res) => {
 	const p = url.parse(req.url, true);
 	const query = p.query;
 	const noruffle = query.noruffle ? `&noruffle=${query.noruffle}` : '';
-	if (query.tray == "zimmertwins") {
-		var prefix;
-		if (req.headers.host == "localhost" && req.headers.host == `localhost:${process.env.port}`) prefix = "http";
-		else prefix = "https";
-		res.send(`<html><head><script>function redirect() { 
-		  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/html/homepage.html${noruffle}'; 
-		}</script></head><body onload="redirect()"></body></html>`);
-	} else {
+	var prefix;
+	if (req.headers.host == "localhost" && req.headers.host == `localhost:${process.env.port}`) prefix = "http";
+	else prefix = "https";
+	if (query.tray == "zimmertwins") res.send(`<html><head><script>function redirect() { 
+	  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/html/homepage.html${noruffle}'; 
+	}</script></head><body onload="redirect()"></body></html>`);
+	else {
 		title = "Video Editor";
 		attrs = {
 			data: process.env.SWF_URL + `/go_full${query.v || ""}.swf`,
