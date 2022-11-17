@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const url = require("url")
 const fs = require("fs")
+const stuff = require("./models/page")
 
 Object.assign(process.env, require("./env"), require("./config"));
 // middlewares
@@ -16,7 +17,6 @@ const utilities = [asset_thumb, movie, asset, char, file];
 // app functions
 app.use(require("./controllers"))
 app.use(require("morgan")("dev"))
-const stuff = require("./models/page");
 app.use((req, res) => {
 	const p = url.parse(req.url, true);
 	utilities.find(f => f(req, res, p));
