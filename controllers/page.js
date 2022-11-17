@@ -125,7 +125,8 @@ router.get("/go_full", (req, res) => {
 	else {
 		var swf;
 		title = "Video Editor";
-		if (p.query.mode != "dark") swf = process.env.SWF_URL + `/go_full${query.v || ""}.swf`;
+		if (p.query.mode != "dark") swf = !p.query.v ? 
+			process.env.SWF_URL + `/go_full.swf` : `https://josephanimate2021.github.io/animation/${p.query.v}/go_full.swf`;
 		else swf = "https://josephanimate2021.github.io/Animium-Swfs/go_dark.swf";
 		attrs = {
 			data: swf,
@@ -136,7 +137,7 @@ router.get("/go_full", (req, res) => {
 		params = {
 			flashvars: {
 				apiserver: "/",
-				storePath: process.env.STORE_URL + "/<store>",
+				storePath: !p.query.v ? process.env.STORE_URL + "/<store>" : "https://josephanimate2021.github.io/store/50/<store>",
 				isEmbed: 1,
 				ctc: "go",
 				ut: 50,
@@ -147,8 +148,9 @@ router.get("/go_full", (req, res) => {
 				lid: 13,
 				isLogin: "Y",
 				retut: 1,
-				clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-				themeId: "business",
+				clientThemePath: !p.query.v ? 
+				process.env.CLIENT_URL + "/<client_theme>" : "https://josephanimate2021.github.io/static/477/<client_theme>",
+				tray: "retro",
 				tlang: "en_US",
 				movieId: query.movieId || "",
 				goteam_draft_only: 1,
