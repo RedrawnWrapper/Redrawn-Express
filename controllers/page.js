@@ -123,9 +123,12 @@ router.get("/go_full", (req, res) => {
 	  location.href = 'https://zimmertwins.onrender.com/starters?homeUrl=${prefix}://${req.headers.host}/html/homepage.html${noruffle}'; 
 	}</script></head><body onload="redirect()"></body></html>`);
 	else {
+		var swf;
 		title = "Video Editor";
+		if (p.query.mode != "dark") swf = process.env.SWF_URL + `/go_full${query.v || ""}.swf`;
+		else swf = "https://josephanimate2021.github.io/Animium-Swfs/go_dark.swf";
 		attrs = {
-			data: process.env.SWF_URL + `/go_full${query.v || ""}.swf`,
+			data: swf,
 			type: "application/x-shockwave-flash",
 			width: "100%",
 			height: "100%",
