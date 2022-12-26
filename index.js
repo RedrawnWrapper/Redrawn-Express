@@ -50,4 +50,4 @@ app.use((req, res) => {
 	}
 })
 
-app.listen(process.env.PORT || 80, console.log("Anistick Has Started"))
+app.listen(process.env.PORT || 80, console.log("Redrawn Has Started"))

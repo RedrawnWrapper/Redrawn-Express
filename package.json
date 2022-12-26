@@ -1,21 +1,21 @@
 {
-  "name": "starter-express-api",
-  "version": "1.0.0",
-  "description": "",
+  "name": "redrawn",
+  "version": "2.0.0",
+  "description": "Redrawn is an lvm project that uses node.js to turn ideas and video scripts into animations.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyclic-software/starter-express-api.git"
+    "url": "git+https://github.com/RedrawnWrapper/Redrawn-Express.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cyclic-software/starter-express-api/issues"
+    "url": "https://github.com/RedrawnWrapper/Redrawn-Express/issues"
   },
-  "homepage": "https://github.com/cyclic-software/starter-express-api#readme",
+  "homepage": "https://github.com/RedrawnWrapper/Redrawn-Express#readme",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@ffprobe-installer/ffprobe": "^1.4.1",
