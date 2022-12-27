@@ -1,7 +1,40 @@
 const folder = process.env.SAVED_FOLDER,
       assetFolder = process.env.ASSETS_FOLDER,
       nodezip = require("node-zip"),
-      fs = require("fs")
+      fs = require("fs"),
+	  date = new Date();
+  
+// converts a single digit input into two digits
+const formatData = (input) => {
+  if (input > 9) {
+    return input;
+  } else return `0${input}`;
+};
+  
+// converts a 24 Hour into a 12 Hour clock
+const formatHour = (input) => {
+  if (input > 12) {
+    return input - 12;
+  }
+  return input;
+};
+  
+// Data about the date
+const format = {
+  dd: formatData(date.getDate()),
+  mm: formatData(date.getMonth() + 1),
+  yyyy: date.getFullYear(),
+  HH: formatData(date.getHours()),
+  hh: formatData(formatHour(date.getHours())),
+  MM: formatData(date.getMinutes()),
+  SS: formatData(date.getSeconds()),
+};
+const format24Hour = ({ dd, mm, yyyy, HH, MM, SS }) => {
+  return `${mm}/${dd}/${yyyy} ${HH}:${MM}:${SS}`;
+};
+const format12Hour = ({ dd, mm, yyyy, hh, MM, SS }) => {
+  return `${mm}/${dd}/${yyyy} ${hh}:${MM}:${SS}`;
+};
 
 /**
  * @summary generates a random id
@@ -77,4 +110,10 @@ exports.makeZip = function(fileName, zipName) {
 exports.addToZip = function(zip, zipName, buffer) {
 	zip.add(zipName, buffer);
 	if (zip[zipName].crc32 < 0) zip[zipName].crc32 += 4294967296;
+};
+exports.time = function(f) {
+	switch(f) {
+		case "12hour": return format12Hour(format);
+		case "24hour": return format24Hour(format);
+	}
 };

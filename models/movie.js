@@ -27,6 +27,9 @@ exports.save = function(movieZip, thumb, id) {
 				});
 			}).catch(e => rej(e));		
 		}
+		// get the current date and write the file into the saved folder for the meta file to look at.
+		const [p, s] = id.split("-");
+		fs.writeFileSync(process.env.SAVED_FOLDER + `/date-${s}.txt`, fUtil.time("24hour"));
 	});
 };
 exports.loadZip = function(mId) {
@@ -109,6 +112,7 @@ exports.meta = function(movieId) {
 		if (!movieId.startsWith("m-")) return;
 		const n = Number.parseInt(movieId.substr(2));
 		const fn = fUtil.getFileIndex("movie-", ".xml", n);
+		const date = fs.readFileSync(process.env.SAVED_FOLDER + `/date-${n}.txt`, 'utf8');
 
 		const fd = fs.openSync(fn, "r");
 		const buffer = Buffer.alloc(256);
@@ -126,7 +130,7 @@ exports.meta = function(movieId) {
 
 		fs.closeSync(fd);
 		res({
-			date: fs.statSync(fn).mtime,
+			date: date,
 			durationString: durationStr,
 			duration: duration,
 			title: title || "Untitled Video",
