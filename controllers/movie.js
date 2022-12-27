@@ -9,18 +9,6 @@ const express = require("express"),
       starter = require("../models/starter"),
       url = require("url")
 
-router.get("/movie_thumbs/:mId", (req, res) => {
-	const id = req.params.mId;
-	movie.loadThumb(id).then((v) => {
-		res.setHeader("Content-Type", "image/png");
-		res.statusCode = 200;
-		res.end(v);
-	}).catch(e => {
-		res.statusCode = 400;
-        console.log(e);
-		res.end(e);
-	});
-})
 router.post("/upload_movie", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f, files) => {
 		if (!files.import) return;

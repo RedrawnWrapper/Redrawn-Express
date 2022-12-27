@@ -8,11 +8,12 @@ const stuff = require("./models/page")
 Object.assign(process.env, require("./env"), require("./config"));
 // middlewares
 const asset_thumb = require("./middlewares/asset_thumb");
+const movie_thumb = require("./middlewares/movie_thumb");
 const movie = require("./middlewares/movie");
 const asset = require("./middlewares/asset");
 const char = require("./middlewares/char");
 const file = require("./middlewares/file");
-const utilities = [asset_thumb, movie, asset, char, file];
+const utilities = [asset_thumb, movie_thumb, movie, asset, char, file];
 
 // app functions
 app.use(require("./controllers"))
