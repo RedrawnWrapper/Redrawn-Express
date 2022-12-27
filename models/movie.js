@@ -29,7 +29,7 @@ exports.save = function(movieZip, thumb, id) {
 		}
 		// get the current date and write the file into the saved folder for the meta file to look at.
 		const [p, s] = id.split("-");
-		fs.writeFileSync(process.env.SAVED_FOLDER + `/date-${s}.txt`, fUtil.time("12hour"));
+		fs.writeFileSync(process.env.SAVED_FOLDER + `/date-${s}.txt`, fUtil.time("24hour"));
 	});
 };
 exports.loadZip = function(mId) {
