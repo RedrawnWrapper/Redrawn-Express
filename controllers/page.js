@@ -4,7 +4,7 @@ const express = require("express"),
       stuff = require("../models/page"),
       http = require("http"),
       url = require("url"),
-      movie = require("../models/movie"),
+	  movie = require("../models/movie"),
 	  list = movie.loadRows()
 
 function toAttrString(table) {
@@ -426,18 +426,18 @@ router.get("/home", (req, res) => {
 	
 	
 		<div class="sample-videos">
-			<div class="container">
-				<h2>Your Videos</h2>
-	
-				<div class="videos-container clearfix">${list.map(v => v.html).join('') || "<center><h4>No Videos. <a href='/html/list.html'>Go To The Videos List</a></h4></center>"}</div>
-			</div>
-	
-			<!-- Video player container -->
-			<div class="modal video-modal hide" id="sample-video-modal">
-				<button class="close" data-dismiss="modal">&#215;</button>
-				<div class="video-modal-content" id="sample-video-player"></div>
-			</div>
-		</div>
+        <div class="container">
+            <h2>Your Videos</h2>
+
+            <div class="videos-container clearfix">${list.map(v => v.html)}</div>
+			<p>Note: Your videos might not always update live here unless you restart localhost. so it's best if your view your videos in the <a href="/html/list.html">Video List</a>.</p>
+        </div>
+
+        <!-- Video player container -->
+        <div class="modal video-modal hide" id="sample-video-modal">
+            <button class="close" data-dismiss="modal">&#215;</button>
+            <div class="video-modal-content" id="sample-video-player"></div>
+        </div></div>
 	
 		<div class="plans">
 			<div class="container">
@@ -451,7 +451,6 @@ router.get("/home", (req, res) => {
 	<script charset="ISO-8859-1" src="http://fast.wistia.com/static/concat/E-v1.js"></script>
 	<script charset="ISO-8859-1" src="http://fast.wistia.com/embed/medias/b9wtido8pl/metadata.js"></script>
 	<script>
-	
 	$('.video-holder').click(function(e) {
 		e.preventDefault();
 		var src = $(this).data('video');
@@ -461,7 +460,7 @@ router.get("/home", (req, res) => {
 		});
 		var player = $('<iframe width="800" height="450" frameborder="0" allowfullscreen></iframe>').attr('src', src);
 		$('#sample-video-player').empty().append(player);
-	});
+	})
 	</script>
 	
 	
@@ -547,7 +546,6 @@ router.get("/home", (req, res) => {
 	
 	</div>
 	<!-- END OF PAGE STRUCTURE -->
-	
 	
 	</body>
 	</html>`);
