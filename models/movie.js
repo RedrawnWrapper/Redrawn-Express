@@ -32,6 +32,15 @@ exports.save = function(movieZip, thumb, id) {
 		fs.writeFileSync(process.env.SAVED_FOLDER + `/date-${s}.txt`, fUtil.time("12hour"));
 	});
 };
+exports.loadRows = function() {
+	const table = [];
+	var ids = fUtil.getValidFileIndicies('movie-', '.xml');
+	for (const i in ids) {
+		var id = `m-${ids[i]}`;
+		table.unshift({ html: `<a class="video-holder" href="#" data-video="/app/player?movieId=${id}"><div class="vthumb"><div class="vthumb-clip"><div class="vthumb-clip-inner"><span class="valign"></span><img src="/movie_thumbs/${id}" alt=""/></div></div></div><div class="play"></div></a>` });
+	}
+	return table;
+};
 exports.loadZip = function(mId) {
 	return new Promise((res, rej) => {
 		const i = mId.indexOf("-");

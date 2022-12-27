@@ -1,7 +1,8 @@
+const fs = require("fs");
+if (!fs.existsSync(process.env.SAVED_FOLDER)) fs.mkdirSync(process.env.SAVED_FOLDER);
 const folder = process.env.SAVED_FOLDER,
       assetFolder = process.env.ASSETS_FOLDER,
       nodezip = require("node-zip"),
-      fs = require("fs"),
 	  date = new Date();
   
 // converts a single digit input into two digits
@@ -116,4 +117,7 @@ exports.time = function(f) {
 		case "12hour": return format12Hour(format);
 		case "24hour": return format24Hour(format);
 	}
+};
+exports.getYear = function() {
+	return date.getFullYear();
 };
