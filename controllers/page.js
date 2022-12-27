@@ -364,7 +364,7 @@ router.get("/home", (req, res) => {
 			</button>
 	
 				<ul id="top-nav" class="top-nav collapse">
-					<li><a onclick="document.getElementById("movie")">Upload A Movie</a></li>
+					<li><a id="upload_movie">Upload A Movie</a></li>
 					<li><a href="/recorder">Anistick Recorder</a></li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Explore <span class="caret"></span></a>
@@ -431,7 +431,9 @@ router.get("/home", (req, res) => {
 
             <div class="videos-container clearfix">${list.map(v => v.html)}</div>
 			<p>Note: Your videos might not always update live here unless you restart localhost. so it's best if your view your videos in the <a href="/html/list.html">Video List</a>.</p>
-        </div>
+        </div><form style="display:none" enctype='multipart/form-data' action='/upload_movie' method='post'>
+		<input id='movie' type="file" onchange="this.form.submit()" name='import' accept=".xml" />
+	</form>
 
         <!-- Video player container -->
         <div class="modal video-modal hide" id="sample-video-modal">
@@ -469,7 +471,7 @@ router.get("/home", (req, res) => {
 	var b=document.getElementsByTagName("script")[0];
 	a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/4526.js?"+Math.floor(new Date().getTime()/3600000);
 	a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-	</script>
+	</script><script>$('#upload_movie').click(function() { document.getElementById("movie").click(); })</script>
 	
 	<!-- FOOTER -->
 	
