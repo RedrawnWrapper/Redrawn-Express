@@ -12,7 +12,12 @@ router.post("/saveWaveForm/", (req, res) => {
 })
 router.post("/getWaveForm/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
-		console.log(f);
+		try {
+			const id = f.wfid.slice(0, -4);
+			fs.readFileSync(process.env.ASSETS_FOLDER + `/${id}.wf`);
+		} catch (e) {
+			fs.readFileSync(process.env.ASSETS_FOLDER + `/${f.wfid}.wf`);
+		}
 	});
 })
 
