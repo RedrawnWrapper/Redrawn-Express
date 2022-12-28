@@ -154,7 +154,7 @@ exports.packMovie = async function(xmlBuffer) {
 		const themeId = pieces[0];
 
 		// add the extension to the last key
-		const ext = pieces.pop();
+		var ext = pieces.pop();
 		pieces[pieces.length - 1] += "." + ext;
 		// add the type to the filename
 		pieces.splice(1, 0, type);
@@ -162,13 +162,20 @@ exports.packMovie = async function(xmlBuffer) {
 		const filename = pieces.join(".");
 		if (themeId == "ugc") {
 			const [ preifx, file ] = pieces[2].split("-");
-			const id = file.slice(0, -4);
-			const dot = file.lastIndexOf(".");
-			const ext = file.substr(dot + 1);
-			var path = fUtil.getFileIndexForAssets("asset-", `.${ext}`, id);
+			var id, dot, ext, path, b;
 			var t = "";
 			if (type == "prop" && subtype == "video") t = "video";
-			var b = fs.readFileSync(fUtil.getFileIndexForAssets(`${t || type}-`, `.${ext}`, id));
+			if (file) {
+				id = file.slice(0, -4);
+				dot = file.lastIndexOf(".");
+				ext = file.substr(dot + 1);
+				path = fUtil.getFileIndexForAssets("asset-", `.${ext}`, id);
+				b = fs.readFileSync(fUtil.getFileIndexForAssets(`${t || type}-`, `.${ext}`, id));
+			} else {
+				id = pieces[2].slice(0, -4);
+				path = process.env.ASSETS_FOLDER + `/${pieces[2]}`;
+				b = fs.readFileSync(path);
+			}
 			if (!fs.existsSync(path)) fs.writeFileSync(path, b);
 			try {
 				const buffer = await asset.load(id, ext);

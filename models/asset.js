@@ -22,8 +22,9 @@ exports.parseXmls = function(v) {
 				xml = `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" headable="${v.headable}" holdable="${v.holdable}" wearable="${v.wearable}" placeable="${v.placeable}" facing="left" width="0" height="0" asset_url="/assets/${v.type}/${v.id}"/>`;
 			}
 			break;
-		} case "sound": {
-			xml = `<sound subtype="${v.subtype}" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
+		} case "sound": 
+		default: {
+			xml = `<sound subtype="${v.subtype || "sound"}" id="${v.id}" enc_asset_id="${v.id}" name="${v.title || "tts"}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
 			break;
 		}
 	}
@@ -32,7 +33,7 @@ exports.parseXmls = function(v) {
 exports.meta = function(file, type, subtype) {
 	const id = file.slice(0, -4);
 	var meta;
-	const title = fs.readFileSync(process.env.META_FOLDER + `/${id}-title.txt`, 'utf8');
+	const title = fs.existsSync(process.env.META_FOLDER + `/${id}-title.txt`) ? fs.readFileSync(process.env.META_FOLDER + `/${id}-title.txt`, 'utf8') : "tts";
 	switch (type) {
 		case "prop": {
 			const m = require("." + process.env.META_FOLDER + `/${id}-meta.json`);
@@ -42,6 +43,12 @@ exports.meta = function(file, type, subtype) {
 			else meta = {
 				id: file, title: title, holdable: m.holdable, headable: m.headable, wearable: m.wearable, placeable: m.placeable, type: "prop"
 			};
+			break;
+		} case "sound": {
+			meta = {
+				id: file, title: title, type: "sound"
+			}
+			break;
 		}
 	}
 	return meta;
@@ -82,7 +89,8 @@ exports.load = function(aId, ext) {
 		if (!fUtil.getFileIndexForAssets("asset-", `.${ext}`, aId)) rej("Error: The file that was trying to load does not exist.");
 		else {
 			const path = fUtil.getFileIndexForAssets("asset-", `.${ext}`, aId);
-			res(fs.readFileSync(path));
+			if (fs.existsSync(path)) res(fs.readFileSync(path));
+			else res(fs.readFileSync(process.env.ASSETS_FOLDER + `/${aId}.${ext}`));
 		}
 	});
 };
