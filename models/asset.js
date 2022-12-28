@@ -55,6 +55,7 @@ exports.meta = function(file, type, subtype) {
 };
 exports.createMeta = function(id, name, type, subtype, dur = false) {
 	var prefix;
+	fs.writeFileSync(process.env.META_FOLDER + `/${prefix}-${id}-title.txt`, name);
 	switch (type) {
 		case "bg": {
 			prefix = "b";
@@ -65,6 +66,8 @@ exports.createMeta = function(id, name, type, subtype, dur = false) {
 		} case "sound": {
 			switch (subtype) {
 				case "tts": {
+					fs.unlinkSync(process.env.META_FOLDER + `/${prefix}-${id}-title.txt`);
+					fs.writeFileSync(process.env.META_FOLDER + `/${id}-title.txt`, name);
 					prefix = "t";
 					break;
 				} case "bgmusic": {
@@ -81,7 +84,6 @@ exports.createMeta = function(id, name, type, subtype, dur = false) {
 			fs.writeFileSync(process.env.META_FOLDER + `/${prefix}-${id}-dur.txt`, `dur.${dur}`);
 		}
 	}
-	fs.writeFileSync(process.env.META_FOLDER + `/${prefix}-${id}-title.txt`, name);
 };
 exports.load = function(aId, ext) {
 	return new Promise((res, rej) => {
