@@ -33,7 +33,7 @@ exports.parseXmls = function(v) {
 exports.meta = function(file, type, subtype) {
 	const id = file.slice(0, -4);
 	var meta;
-	const title = fs.existsSync(process.env.META_FOLDER + `/${id}-title.txt`) ? fs.readFileSync(process.env.META_FOLDER + `/${id}-title.txt`, 'utf8') : "tts";
+	const title = fs.readFileSync(process.env.META_FOLDER + `/${id}-title.txt`, 'utf8');
 	switch (type) {
 		case "prop": {
 			const m = require("." + process.env.META_FOLDER + `/${id}-meta.json`);
