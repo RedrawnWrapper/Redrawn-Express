@@ -497,7 +497,7 @@ router.post('/convertTextToSoundAsset/', (req, res) => {
 				} else {
 					const title = `[${voices[data.voice].desc}] ${data.text}`;
 					asset.saveRandom(data.ut, "sound", "mp3", buffer, "tts").then(id => {
-						asset.createMeta(id, `t-${id}.mp3`, "sound", "tts", dur);
+						asset.createMeta(id, `t-${id}.mp3`, "sound", "tts", dur, title);
 						res.end(`0<response><asset><id>${id}.mp3</id><enc_asset_id>${
 							id
 						}.mp3</enc_asset_id><type>sound</type><subtype>tts</subtype><title>${

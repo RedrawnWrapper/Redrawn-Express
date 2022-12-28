@@ -22,9 +22,8 @@ exports.parseXmls = function(v) {
 				xml = `<prop subtype="0" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" headable="${v.headable}" holdable="${v.holdable}" wearable="${v.wearable}" placeable="${v.placeable}" facing="left" width="0" height="0" asset_url="/assets/${v.type}/${v.id}"/>`;
 			}
 			break;
-		} case "sound": 
-		default: {
-			xml = `<sound subtype="${v.subtype || "sound"}" id="${v.id}" enc_asset_id="${v.id}" name="${v.title || "tts"}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
+		} case "sound": {
+			xml = `<sound subtype="${v.subtype || "voiceover"}" id="${v.id}" enc_asset_id="${v.id}" name="${v.title}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`;
 			break;
 		}
 	}
@@ -53,7 +52,7 @@ exports.meta = function(file, type, subtype) {
 	}
 	return meta;
 };
-exports.createMeta = function(id, name, type, subtype, dur = false) {
+exports.createMeta = function(id, name, type, subtype, dur = false, title) {
 	var prefix;
 	fs.writeFileSync(process.env.META_FOLDER + `/${prefix}-${id}-title.txt`, name);
 	switch (type) {
@@ -67,7 +66,7 @@ exports.createMeta = function(id, name, type, subtype, dur = false) {
 			switch (subtype) {
 				case "tts": {
 					fs.unlinkSync(process.env.META_FOLDER + `/${prefix}-${id}-title.txt`);
-					fs.writeFileSync(process.env.META_FOLDER + `/${id}-title.txt`, name);
+					fs.writeFileSync(process.env.META_FOLDER + `/${id}-title.txt`, title);
 					prefix = "t";
 					break;
 				} case "bgmusic": {

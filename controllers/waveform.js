@@ -14,9 +14,9 @@ router.post("/getWaveForm/", (req, res) => {
 	new formidable.IncomingForm().parse(req, (e, f) => {
 		try {
 			const id = f.wfid.slice(0, -4);
-			fs.readFileSync(process.env.ASSETS_FOLDER + `/${id}.wf`);
+			res.end(fs.readFileSync(process.env.ASSETS_FOLDER + `/${id}.wf`));
 		} catch (e) {
-			fs.readFileSync(process.env.ASSETS_FOLDER + `/${f.wfid}.wf`);
+			res.end(fs.readFileSync(process.env.ASSETS_FOLDER + `/${f.wfid}`));
 		}
 	});
 })

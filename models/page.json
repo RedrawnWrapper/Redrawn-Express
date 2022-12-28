@@ -52,19 +52,7 @@
 			"headers": {
 				"Content-Type": "text/html; charset=UTF-8"
 			},
-			"content": "<?xml encoding=\"UTF-8\"?><watermarks><watermark style=\"visualplugin\"/></watermarks>"
-		},
-		"/goapi/getWaveform/": {
-			"headers": {
-				"Content-Type": "text/html; charset=UTF-8"
-			},
-			"content": "1"
-		},
-		"/goapi/saveWaveform/": {
-			"headers": {
-				"Content-Type": "text/html; charset=UTF-8"
-			},
-			"content": "1"
+			"content": "<?xml encoding=\"UTF-8\"?><watermarks><watermark style=\"twoLines\"/></watermarks>"
 		}
 	},
 	"pages": {
