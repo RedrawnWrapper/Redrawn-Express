@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const url = require("url")
+const http = require("http")
 const fs = require("fs")
 const stuff = require("./models/page")
 
@@ -51,4 +52,4 @@ app.use((req, res) => {
 	}
 })
 
-app.listen(process.env.PORT || 80, console.log("Redrawn Has Started"))
+app.listen(process.env.PORT || 80, "127.0.0.1", console.log("Redrawn Has Started"))
