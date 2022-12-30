@@ -360,7 +360,7 @@ router.get("/videomaker", (req, res) => {
 	<div class="site-header">
 		<div class="container site-header-inside clearfix">
 			<a class="site-logo" href="/" title="Redrawn">
-				<img alt="Make a Video With Redrawn" src="https://media.discordapp.net/attachments/1058220247133454407/1058220280851480677/onlinenew.png?width=1300&height=460">
+				<img alt="Make a Video With Redrawn" src="${fUtil.logo(req.headers.host)}">
 			</a>
 		
 			<button type="button" class="top-nav-toggle" data-toggle="collapse" data-target="#top-nav">
@@ -385,7 +385,7 @@ router.get("/videomaker", (req, res) => {
 					<a class="bright" id="upload_char">Upload a Char</a>
 				</li>
 				<li class="top-nav-vm-btn">
-					<span><a class="btn btn-orange" href="/app/videomaker">Make a Video</a></span>
+					<span><a class="btn btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make a Video</a></span>
 				</li>
 			</ul>
 		
@@ -516,7 +516,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Business Friendly</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=business');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=business');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=business');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -532,7 +532,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Whiteboard Animation</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=whiteboard');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=whiteboard');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=whiteboard');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -548,7 +548,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Business as Visual</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=infographics');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=infographics');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -563,7 +563,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Common Craft</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=commoncraft');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=commoncraft');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -578,7 +578,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Comedy World</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=custom');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=custom');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=family');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -593,7 +593,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Lil&#039; Peepz</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=action');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=action');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/cc?themeId=cc2&bs=default');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -608,7 +608,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Stickly Business</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=sticklybiz');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=sticklybiz');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -623,7 +623,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Cartoon Classics</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=retro');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=retro');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -637,7 +637,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>White Houserz</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=election');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=election');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -651,7 +651,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Anime</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=anime');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=anime');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=anime');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -666,7 +666,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Ninja Anime</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=ninjaanime');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=ninjaanime');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=ninjaanime');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -681,7 +681,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Space Citizens</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=spacecitizen');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=spacecitizen');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -695,7 +695,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Chibi Peepz</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=chibi');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=chibi');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=chibi');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -710,7 +710,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Chibi Ninjas</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=ninja');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=ninja');" title="Video Maker">Make a Video</button>
 							<button class="btn btn-icon" type="button" onclick="fullscreenStudio('/app/cc_browser?themeId=ninja');" title="Character Creator">Create a Char</button>
 						</div>
 					</div>
@@ -725,7 +725,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Space Peepz</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=space');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=space');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -739,7 +739,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Stick Figure</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=stick');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=stick');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -753,7 +753,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Zimmertwins</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('https://zimmertwins.onrender.com/starters');" title="Template">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('https://zimmertwins.onrender.com/starters');" title="Template">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -767,7 +767,7 @@ router.get("/videomaker", (req, res) => {
 					<div class="theme-meat">
 						<h3>Lil&#039; Petz World</h3>
 						<div class="apps">
-							<button class="btn btn-orange" type="button" onclick="fullscreenStudio('/app/go_full?tray=animal');" title="Video Maker">Make a Video</button>
+							<button class="btn btn-${fUtil.color(req.headers.host)}" type="button" onclick="fullscreenStudio('/app/go_full?tray=animal');" title="Video Maker">Make a Video</button>
 						</div>
 					</div>
 				</div>
@@ -1039,7 +1039,7 @@ router.get("/home", (req, res) => {
 	<div class="site-header">
 		<div class="container site-header-inside clearfix">
 			<a class="site-logo" href="/app/home" title="Redrawn">
-				<img alt="Make a Video With Redrawn" src="https://media.discordapp.net/attachments/1058220247133454407/1058220280851480677/onlinenew.png?width=1300&height=460">
+				<img alt="Make a Video With Redrawn" src="${fUtil.logo(req.headers.host)}">
 			</a>
 	
 			<button type="button" class="top-nav-toggle" data-toggle="collapse" data-target="#top-nav">
@@ -1064,7 +1064,7 @@ router.get("/home", (req, res) => {
 						<a class="bright" href="https://goanimate-wrapper-repl.joseph-animate.repl.co/">GAWrapper</a>
 					</li>
 					<li class="top-nav-vm-btn">
-						<span><a class="btn btn-orange" href="/app/videomaker">Make a Video</a></span>
+						<span><a class="btn btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make a Video</a></span>
 					</li>
 				</ul>
 	
@@ -1130,7 +1130,7 @@ router.get("/home", (req, res) => {
 			<div class="container">
 				<span>Green light your video</span>
 	
-				<a class="btn btn-large btn-orange" href="/app/videomaker">Make A Video</a>
+				<a class="btn btn-large btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make A Video</a>
 				<a class="btn btn-large btn-dark" href="https://vyond.letsjoincdm.tk/">Beta Version Of Redrawn Online</a>
 			</div>
 		</div>
