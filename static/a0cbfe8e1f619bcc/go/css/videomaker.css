@@ -45,12 +45,12 @@
 }
 
 .vm-tutorial-trigger .on {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/arrow_expand.png) no-repeat center 24px;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/arrow_expand.png) no-repeat center 24px;
 	padding-bottom: 15px
 }
 
 .vm-tutorial-trigger .off {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/arrow_close.png) no-repeat center 6px;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/arrow_close.png) no-repeat center 6px;
 	padding-top: 15px;
 	display: none
 }
@@ -74,7 +74,7 @@
 }
 
 .vm-bf {
-	background: #1a97ab url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_back.jpg) no-repeat center 0;
+	background: #1a97ab url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_back.jpg) no-repeat center 0;
 	color: #223c61;
 	height: 379px;
 	width: 100%;
@@ -85,17 +85,17 @@
 }
 
 .vm-bf.plus {
-	background-image: url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_back2.jpg)
+	background-image: url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_back2.jpg)
 }
 
 .vm-bf.whiteboard {
 	background-color: #fff;
-	background-image: url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_topbanner_whiteboard.jpg);
+	background-image: url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/makeavideo_topbanner_whiteboard.jpg);
 	color: #333
 }
 
 .vm-bf h1 {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/bar.png) no-repeat center 45px;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/bar.png) no-repeat center 45px;
 	color: #fff;
 	font-size: 32px;
 	padding: 0 0 15px;
@@ -177,7 +177,7 @@
 }
 
 .vm-bf-dots .dot>a {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/img_dot.png) no-repeat 0 -30px;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/img_dot.png) no-repeat 0 -30px;
 	display: block;
 	width: 15px;
 	height: 15px
@@ -332,7 +332,7 @@
 
 .i-qvm,
 .i-cc {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/qvm_small_icon.png) no-repeat center center;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/qvm_small_icon.png) no-repeat center center;
 	display: inline-block;
 	width: 24px;
 	height: 18px;
@@ -341,7 +341,7 @@
 }
 
 .i-cc {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/cc_small_icon.png) no-repeat center center
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/cc_small_icon.png) no-repeat center center
 }
 
 .btn-icon {
@@ -351,7 +351,7 @@
 
 .i-cc-large,
 .i-qvm-large {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/cc_large_icon.png) no-repeat center center;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/cc_large_icon.png) no-repeat center center;
 	display: inline-block;
 	width: 26px;
 	height: 26px;
@@ -359,7 +359,7 @@
 }
 
 .i-qvm-large {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/template_small.png) no-repeat center center;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/template_small.png) no-repeat center center;
 	width: 32px;
 	height: 26px
 }
@@ -434,7 +434,7 @@
 }
 
 .filter-item.active .filter-checkbox {
-	background-image: url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/filter_tick.png);
+	background-image: url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/filter_tick.png);
 	background-position: center center;
 	background-repeat: no-repeat
 }
@@ -513,7 +513,7 @@
 }
 
 .filter-crumb-list-clear {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/videomaker/filter_close.png) no-repeat 0 center;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/videomaker/filter_close.png) no-repeat 0 center;
 	color: #666;
 	display: inline-block;
 	padding-left: 18px
@@ -588,7 +588,7 @@ html[xmlns] .slides {
 }
 
 .flex-direction-nav li a {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/index/top/arrow_left_testimonial.png) no-repeat 1px 0;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/index/top/arrow_left_testimonial.png) no-repeat 1px 0;
 	position: absolute;
 	top: 50%;
 	margin: -33px 0 0;
@@ -608,7 +608,7 @@ html[xmlns] .slides {
 }
 
 .flex-direction-nav li a.next {
-	background: transparent url(/RedrawnDownload/static/a0cbfe8e1f619bcc/go/img/index/top/arrow_right_testimonial.png) no-repeat 13px 0;
+	background: transparent url(/Redrawn-Express/static/a0cbfe8e1f619bcc/go/img/index/top/arrow_right_testimonial.png) no-repeat 13px 0;
 	right: 0
 }
 
