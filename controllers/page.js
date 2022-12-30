@@ -360,7 +360,7 @@ router.get("/videomaker", (req, res) => {
 	<div class="site-header">
 		<div class="container site-header-inside clearfix">
 			<a class="site-logo" href="/" title="Redrawn">
-				<img alt="Make a Video With Redrawn" src="https://camo.githubusercontent.com/4c449c82f308df989f508882c88ea1f2bd6aa41b8257a362e367ec9dc0199bf8/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3935393938363335383437333038343938382f3936303031373436333630373730313532352f53696e5f746974756c6f2d312e706e67">
+				<img alt="Make a Video With Redrawn" src="https://media.discordapp.net/attachments/1058220247133454407/1058220280851480677/onlinenew.png?width=1300&height=460">
 			</a>
 		
 			<button type="button" class="top-nav-toggle" data-toggle="collapse" data-target="#top-nav">
@@ -1039,7 +1039,7 @@ router.get("/home", (req, res) => {
 	<div class="site-header">
 		<div class="container site-header-inside clearfix">
 			<a class="site-logo" href="/app/home" title="Redrawn">
-				<img alt="Make a Video With Redrawn" src="https://camo.githubusercontent.com/4c449c82f308df989f508882c88ea1f2bd6aa41b8257a362e367ec9dc0199bf8/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3935393938363335383437333038343938382f3936303031373436333630373730313532352f53696e5f746974756c6f2d312e706e67">
+				<img alt="Make a Video With Redrawn" src="https://media.discordapp.net/attachments/1058220247133454407/1058220280851480677/onlinenew.png?width=1300&height=460">
 			</a>
 	
 			<button type="button" class="top-nav-toggle" data-toggle="collapse" data-target="#top-nav">
