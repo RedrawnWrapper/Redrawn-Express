@@ -122,10 +122,10 @@ exports.getYear = function() {
 	return date.getFullYear();
 };
 exports.logo = function(host) {
-	if (host == "localhost" && `localhost:${process.env.port}`) return 'https://josephanimate2021.github.io/Redrawn-Logos/redrawnnew.png';
+	if (host == "localhost" && `localhost:${process.env.HTTP_PORT}`) return 'https://josephanimate2021.github.io/Redrawn-Logos/redrawnnew.png';
 	else return 'https://josephanimate2021.github.io/Redrawn-Logos/onlinenew.png';
 }
 exports.color = function(host) {
-	if (host == "localhost" && `localhost:${process.env.port}`) return 'blue';
+	if (host == "localhost" && `localhost:${process.env.HTTP_PORT}`) return 'blue';
 	else return 'orange';
 }
