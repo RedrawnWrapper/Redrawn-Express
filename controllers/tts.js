@@ -303,6 +303,30 @@ function processVoice(voiceName, text) {
 				);
 				break;
 			}
+			// make a code using uberduck api slimar to voiceforge and acapela
+			case "uberduck": {
+				var q = qs.encode({
+				  hostname: "uberduck.ai",
+				  path: `/api/v1/speech?voice=${voice.arg}&text=${text}`,
+				  method: "GET",
+				  headers: {
+					'accept': 'application/json',
+				  }
+				});
+				https.get(
+					{
+						host: "uberduck.ai",
+						path: `/api/v1/speech?voice=${voice.arg}&text=${text}`,
+					},
+					(r) => {
+						var buffers = [];
+						r.on("data", (d) => buffers.push(d));
+						r.on("end", () => res(Buffer.concat(buffers)));
+						r.on("error", rej);
+					}
+				);
+				break;
+			}
 			case "svox": {
 				var q = qs.encode({
 					apikey: "e3a4477c01b482ea5acc6ed03b1f419f",
