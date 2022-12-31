@@ -264,7 +264,6 @@ router.get("/videomaker", (req, res) => {
 		function getYear() {
 			let currentDate = new Date();
 			let cYear = currentDate.getFullYear();
-			document.getElementById("CopyrightYear").innerHTML = \`&nbsp;&nbsp;&nbsp; Redrawn © \${cYear}\`;
 		}
 	</script>
 	
@@ -359,36 +358,36 @@ router.get("/videomaker", (req, res) => {
 	<!-- HEADER -->
 	<div class="site-header">
 		<div class="container site-header-inside clearfix">
-			<a class="site-logo" href="/" title="Redrawn">
+			<a class="site-logo" href="/app/home" title="Redrawn">
 				<img alt="Make a Video With Redrawn" src="${fUtil.logo(req.headers.host)}">
 			</a>
-		
+	
 			<button type="button" class="top-nav-toggle" data-toggle="collapse" data-target="#top-nav">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-		
-			<ul id="top-nav" class="top-nav collapse">
-				<li><a id="upload_movie">Upload A Movie</a></li>
-				<li><a href="https://www.anistick.com/recorder">Anistick Recorder</a></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Explore <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/changelog.md?token=GHSAT0AAAAAABT2BKZIAW7G2UINSYE3V4FAYTNYLRQ">Update Log</a></li>
-						<li><a href="https://youtube.com/@josephanimate">Joseph's YouTube Channel</a></li>
-						<li><a href="/html/list.html">Your Videos</a></li>
-						<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/faq.md?token=GHSAT0AAAAAABT2BKZIXY6CE6Y3JEHLK6LEYTNYMSQ">FAQ</a></li>
-					</ul>
-				</li>
-				<li>
-					<a class="bright" id="upload_char">Upload a Char</a>
-				</li>
-				<li class="top-nav-vm-btn">
-					<span><a class="btn btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make a Video</a></span>
-				</li>
-			</ul>
-		
+	
+				<ul id="top-nav" class="top-nav collapse">
+					<li class="dropdown">
+						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Products <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Redrawn</a></li>
+                            <li><a href="/recorder">Redrawn Recorder (BETA)</a></li>
+							<li><a href="/html/list.html">Redrawn Store</a></li>
+                           <li><a  href="https://goanimate-wrapper-repl.joseph-animate.repl.co/">GAWrapper</a></li>
+						</ul>
+					</li>
+                    <li class="dropdown">
+						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Hello (username) <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+                            <li><a id="upload_movie">Upload A Movie</a></li>
+                            <li><a href="/app/home">My Videos</a></li>
+                            <li><a href="/app/home">My Account</a></li>
+						</ul>
+					</li>
+				</ul>
+	
 		</div>
 	</div>
 	
@@ -420,7 +419,7 @@ router.get("/videomaker", (req, res) => {
 		<div class="container">
 			<h1>Turn Ideas And Video Scripts Into Animations Easily!</h1>
 			<div class="vm-bf-content">
-				<h6>Redrawn was originaly created by anger towards the wrapper devs and it's community. this project started back in april 2022 and retired on june 28 2022 due to tts issues. good news is that after coming back, all issues have been resolved. To this day, redrawn is a spinoff to the latest Wrapper Offline 2.0.0 with broken vocalware voices and more stuff.</h6>
+				
 			</div>
 		</div>
 	</div>
@@ -430,7 +429,7 @@ router.get("/videomaker", (req, res) => {
 		<div class="header">
 			<div class="header-content">
 				<h2>Select A Theme</h2>
-				Pick a video-making theme based on its visual style, or use the filter to choose based on features.        </div>
+				Pick a theme to begin making videos in Redrawn!     </div>
 			<div class="filter-dropdown-container">
 				<div class="filter-dropdown dropdown">
 					<a class="filter-dropdown-toggle" data-toggle="dropdown" href="#">Filter <span class="caret"></span></a>
@@ -453,6 +452,16 @@ router.get("/videomaker", (req, res) => {
 								<div class="filter-body">
 									<div class="filter-name"><strong>Extensive Library</strong></div>
 									<span class="filter-desc">Collections of characters, backgrounds and props corresponding to a wide variety of locations, occupations and industries.</span>
+								</div>
+								<div class="filter-checkbox-container">
+									<span class="filter-checkbox"></span>
+								</div>
+							</a>
+                            <a class="filter-item" href="#" data-filter="community">
+								<div class="filter-icon"><img src="https://josephanimate2021.github.io/static/477/go/img/videomaker/filter_library.png" alt=""></div>
+								<div class="filter-body">
+									<div class="filter-name"><strong>Community Library</strong></div>
+									<span class="filter-desc">Explore the Redrawn's community thru characters, backgrounds, and more!</span>
 								</div>
 								<div class="filter-checkbox-container">
 									<span class="filter-checkbox"></span>
@@ -499,12 +508,14 @@ router.get("/videomaker", (req, res) => {
 				</div>
 			</div>
 		</div>
-	
-		<div class="filter-results" id="filter-results" style="display:none">
+        <div class="filter-results" id="filter-results" style="display:none">
 			<b class="filter-count">0</b> matching themes based on filters:
 			<ul class="filter-crumb-list"></ul>
 			<a class="filter-crumb-list-clear" href="#">Clear all</a>
 		</div>
+         <div class="searchbox">
+            <input type="text" id="searchbox" placeholder="Search for themes">
+        </div>
 	
 		<div class="themes clearfix" id="themes">
 	
@@ -570,7 +581,7 @@ router.get("/videomaker", (req, res) => {
 				<div class="theme-tag">$59 per year</div>
 			</div>
 	
-			<div class="theme" id="thm-custom" data-tags="lipsync qvm char_creator">
+			<div class="theme" id="thm-custom" data-tags="lipsync qvm char_creator community">
 				<div class="theme-cell">
 					<div class="theme-cover">
 						<img src="https://josephanimate2021.github.io/static/477/go/img/videomaker/themes/Comedy_World.jpg" alt="Comedy World">
@@ -832,22 +843,20 @@ router.get("/videomaker", (req, res) => {
 	
 	<div class="site-footer">
 		<div class="container clearfix">
-		
+	
 			<div class="site-footer-nav clearfix">
 				<div class="col" style="border-left: none;">
 					<h5><span>About Redrawn</span></h5>
 					<ul>
 						<li><a href="https://github.com/RedrawnWrapper/Redrawn">Who we are</a></li>
-						<li><a href="https://discord.gg/PnRGd96amY">Discord</a></li>
+						<li><a href="https://discord.gg/BYaM76Arhx">Discord</a></li>
 						<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/changelog.md?token=GHSAT0AAAAAABT2BKZIAW7G2UINSYE3V4FAYTNYLRQ">Update Log</a></li>
 						<li><a href="/html/list.html">Your Videos</a></li>
 					</ul>
 				</div>
 				<div class="col">
-					<h5><span>GoAnimate Solutions</span></h5>
+					<h5><span>Community</span></h5>
 					<ul>
-						<li><a href="https://youtube.com/@josephanimate">Joseph's Channel</a></li>
-						<li><a href="https://discord.io/goanimate4schools" target="_blank">Joseph's Discord Server</a></li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
@@ -856,7 +865,7 @@ router.get("/videomaker", (req, res) => {
 				<div class="col">
 					<h5><span>Usage Guidelines</span></h5>
 					<ul>
-						<li class="dummy">&nbsp;</li>
+					    <li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
@@ -867,16 +876,16 @@ router.get("/videomaker", (req, res) => {
 					<h5>Getting Help</h5>
 					<ul>
 						<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/faq.md?token=GHSAT0AAAAAABT2BKZIXY6CE6Y3JEHLK6LEYTNYMSQ">FAQ</a></li>
-						<li class="dummy">&nbsp;</li>
-						<li class="dummy">&nbsp;</li>
+                        <li><a href="https://youtube.com/@josephanimate">Joseph's Channel</a></li>
+						<li><a href="https://discord.io/goanimate4schools" target="_blank">Joseph's Discord Server</a></li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 					</ul>
 				</div>
 			</div>
 			<hr>
-		
-		
+	
+	
 			<div class="clearfix">
 				<div class="site-footer-socials-container">
 					Follow us on:
@@ -884,7 +893,10 @@ router.get("/videomaker", (req, res) => {
 						<li><a class="youtube" href="http://www.youtube.com/@redrawnwrapper">YouTube</a></li>
 					</ul>
 				</div>
-				<div class="site-footer-copyright" id="CopyrightYear"></div>
+				<div class="site-footer-copyright">
+					&nbsp;&nbsp;&nbsp;
+					Redrawn &copy; ${fUtil.getYear()}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -902,6 +914,10 @@ router.get("/videomaker", (req, res) => {
 	</body>
 	</html>`);
 })
+//end of "videomaker"
+
+// starts of "homepage building"
+
 router.get("/home", (req, res) => {
 	const p = url.parse(req.url, true);
 	res.setHeader("Content-Type", "text/html; charset=utf8");
@@ -1049,22 +1065,25 @@ router.get("/home", (req, res) => {
 			</button>
 	
 				<ul id="top-nav" class="top-nav collapse">
-					<li><a id="upload_movie">Upload A Movie</a></li>
-					<li><a href="/recorder">Anistick Recorder</a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Explore <span class="caret"></span></a>
+						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Products <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/changelog.md?token=GHSAT0AAAAAABT2BKZIAW7G2UINSYE3V4FAYTNYLRQ">Update Log</a></li>
-							<li><a href="https://youtube.com/@josephanimate">Joseph's YouTube Channel</a></li>
-							<li><a href="/html/list.html">Your Videos</a></li>
-							<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/faq.md?token=GHSAT0AAAAAABT2BKZIXY6CE6Y3JEHLK6LEYTNYMSQ">FAQ</a></li>
+							<li><a href="#">Redrawn</a></li>
+                            <li><a href="/recorder">Redrawn Recorder (BETA)</a></li>
+							<li><a href="/html/list.html">Redrawn Store</a></li>
+                           <li><a  href="https://goanimate-wrapper-repl.joseph-animate.repl.co/">GAWrapper</a></li>
 						</ul>
 					</li>
-					<li>
-						<a class="bright" href="https://goanimate-wrapper-repl.joseph-animate.repl.co/">GAWrapper</a>
+                    <li class="dropdown">
+						<a class="dropdown-toggle" href="/html/list.html" data-toggle="dropdown">Hello (username) <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+                            <li><a id="upload_movie">Upload A Movie</a></li>
+                            <li><a href="/app/home">My Videos</a></li>
+                            <li><a href="/app/home">My Account</a></li>
+						</ul>
 					</li>
 					<li class="top-nav-vm-btn">
-						<span><a class="btn btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make a Video</a></span>
+						<span><a class="btn btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Enter Redrawn</a></span>
 					</li>
 				</ul>
 	
@@ -1102,7 +1121,7 @@ router.get("/home", (req, res) => {
                     </div>
                     <div class="span4 feature">
                         <img src="//josephanimate2021.github.io/static/477/go/img/business_video/home/animated-video.png" alt="Animated Video">
-                        <h3>Free and Open Source</h3>
+                        <h3>Always free to use and modify</h3>
                         <p>Redrawn is free to contribute, download, or modify. We enjoy people using our LVM!</p>
                     </div>
                 </div>
@@ -1112,7 +1131,7 @@ router.get("/home", (req, res) => {
 	
 		<div class="sample-videos">
         <div class="container">
-            <h2>Your Videos</h2>
+            <h2>Made With Redrawn</h2>
 
             <div class="videos-container clearfix">${list.map(v => v.html)}</div>
 			<p>Note: Your videos might not always update live here unless you restart localhost. so it's best if your view your videos in the <a href="/html/list.html">Video List</a>.</p>
@@ -1126,14 +1145,14 @@ router.get("/home", (req, res) => {
             <div class="video-modal-content" id="sample-video-player"></div>
         </div></div>
 	
-		<div class="plans">
+		<!-- <div class="plans">
 			<div class="container">
 				<span>Green light your video</span>
 	
 				<a class="btn btn-large btn-${fUtil.color(req.headers.host)}" href="/app/videomaker">Make A Video</a>
 				<a class="btn btn-large btn-dark" href="https://vyond.letsjoincdm.tk/">Beta Version Of Redrawn Online</a>
 			</div>
-		</div>
+		</div>-->
 	
 	<script charset="ISO-8859-1" src="http://fast.wistia.com/static/concat/E-v1.js"></script>
 	<script charset="ISO-8859-1" src="http://fast.wistia.com/embed/medias/b9wtido8pl/metadata.js"></script>
@@ -1174,10 +1193,8 @@ router.get("/home", (req, res) => {
 					</ul>
 				</div>
 				<div class="col">
-					<h5><span>GoAnimate Solutions</span></h5>
+					<h5><span>Community</span></h5>
 					<ul>
-						<li><a href="https://youtube.com/@josephanimate">Joseph's Channel</a></li>
-						<li><a href="https://discord.io/goanimate4schools" target="_blank">Joseph's Discord Server</a></li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
@@ -1197,8 +1214,8 @@ router.get("/home", (req, res) => {
 					<h5>Getting Help</h5>
 					<ul>
 						<li><a href="https://raw.githubusercontent.com/RedrawnWrapper/Redrawn/main/faq.md?token=GHSAT0AAAAAABT2BKZIXY6CE6Y3JEHLK6LEYTNYMSQ">FAQ</a></li>
-						<li class="dummy">&nbsp;</li>
-						<li class="dummy">&nbsp;</li>
+                        <li><a href="https://youtube.com/@josephanimate">Joseph's Channel</a></li>
+						<li><a href="https://discord.io/goanimate4schools" target="_blank">Joseph's Discord Server</a></li>
 						<li class="dummy">&nbsp;</li>
 						<li class="dummy">&nbsp;</li>
 					</ul>
