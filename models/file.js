@@ -1,5 +1,6 @@
 const fs = require("fs");
 if (!fs.existsSync(process.env.SAVED_FOLDER)) fs.mkdirSync(process.env.SAVED_FOLDER);
+if (!fs.existsSync(process.env.ASSETS_FOLDER)) fs.mkdirSync(process.env.ASSETS_FOLDER);
 const folder = process.env.SAVED_FOLDER,
       assetFolder = process.env.ASSETS_FOLDER,
       nodezip = require("node-zip"),
