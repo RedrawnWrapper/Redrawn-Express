@@ -4,21 +4,18 @@ if (!fs.existsSync(process.env.ASSETS_FOLDER)) fs.mkdirSync(process.env.ASSETS_F
 const folder = process.env.SAVED_FOLDER,
       assetFolder = process.env.ASSETS_FOLDER,
       nodezip = require("node-zip"),
-	  date = new Date();
+      date = new Date();
   
 // converts a single digit input into two digits
 const formatData = (input) => {
-  if (input > 9) {
-    return input;
-  } else return `0${input}`;
+  if (input > 9) return input;
+  else return `0${input}`;
 };
   
 // converts a 24 Hour into a 12 Hour clock
 const formatHour = (input) => {
-  if (input > 12) {
-    return input - 12;
-  }
-  return input;
+  if (input > 12) return input - 12;
+  else return input;
 };
   
 // Data about the date
