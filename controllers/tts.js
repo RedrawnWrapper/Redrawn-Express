@@ -20,41 +20,48 @@ function processVoice(voiceName, text) {
 		const voice = voices[voiceName];
 		switch (voice.source) {
 			case "polly": {
-				// make sure it's under the char limit
-				text = text.substring(0, 2999);
-
-				const body = new URLSearchParams({
-					msg: text,
-					lang: voice.arg,
-					source: "ttsmp3"
-				}).toString();
+				var buffers = [];
 				var req = https.request(
 					{
-						hostname: "ttsmp3.com",
+						hostname: "pollyvoices.com",
 						port: "443",
-						path: "/makemp3_new.php",
+						path: "/api/sound/add",
 						method: "POST",
 						headers: {
-							"Content-Length": body.length,
-							"Content-type": "application/x-www-form-urlencoded"
-						}
+							"Content-Type": "application/x-www-form-urlencoded",
+						},
 					},
 					(r) => {
-						let buffers = [];
-						r.on("data", (d) => buffers.push(d));
+						r.on("data", (b) => buffers.push(b));
 						r.on("end", () => {
-							const json = JSON.parse(Buffer.concat(buffers).toString());
-							if (json.Error != 0) rej(json.Text);
-
-							get(json.URL)
-								.then(res)
-								.catch(rej);
+							var json = JSON.parse(Buffer.concat(buffers));
+							if (json.file) get(`https://pollyvoices.com${json.file}`).then(res);
+							else rej();
 						});
-						r.on("error", rej);
 					}
 				);
-				req.write(body);
+				req.write(qs.encode({ text: text, voice: voice.arg }));
 				req.end();
+				break;
+			}
+        case "nextup": {
+				https.get("https://nextup.com/ivona/index.html", (r) => {
+					var q = qs.encode({
+						voice: voice.arg,
+						language: `${voice.language}-${voice.country}`,
+						text: text,
+					});
+					var buffers = [];
+					https.get(`https://nextup.com/ivona/php/nextup-polly/CreateSpeech/CreateSpeechGet3.php?${q}`, (r) => {
+						r.on("data", (d) => buffers.push(d));
+						r.on("end", () => {
+							const loc = Buffer.concat(buffers).toString();
+							if (!loc.startsWith("http")) rej();
+							get(loc).then(res).catch(rej);
+						});
+						r.on("error", rej);
+					});
+				});
 				break;
 			}
 			/* WARNING: NUANCE TTS API HAS BACKGROUND MUSIC */
@@ -303,8 +310,7 @@ function processVoice(voiceName, text) {
 				);
 				break;
 			}
-			// make a code using uberduck api slimar to voiceforge and acapela
-			case "uberduck": {
+			 case "uberduck": {
 				var q = qs.encode({
 				  hostname: "uberduck.ai",
 				  path: `/api/v1/speech?voice=${voice.arg}&text=${text}`,
@@ -316,7 +322,7 @@ function processVoice(voiceName, text) {
 				https.get(
 					{
 						host: "uberduck.ai",
-						path: `/api/v1/speech?voice=${voice.arg}&text=${text}`,
+					path: `/api/v1/speech?voice=${voice.arg}&text=${text}`,
 					},
 					(r) => {
 						var buffers = [];
@@ -327,6 +333,7 @@ function processVoice(voiceName, text) {
 				);
 				break;
 			}
+        
 			case "svox": {
 				var q = qs.encode({
 					apikey: "e3a4477c01b482ea5acc6ed03b1f419f",
@@ -412,13 +419,11 @@ function processVoice(voiceName, text) {
 				const req = https.request(
 					{
 						host: "readloud.net",
-						port: 443,
 						path: voice.arg,
 						method: "POST",
+						port: "443",
 						headers: {
 							"Content-Type": "application/x-www-form-urlencoded",
-							"User-Agent":
-								"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
 						},
 					},
 					(r) => {
@@ -430,23 +435,7 @@ function processVoice(voiceName, text) {
 							const end = html.indexOf(".mp3", beg) + 4;
 							const sub = html.subarray(beg, end).toString();
 							const loc = `https://readloud.net${sub}`;
-
-							https.get(
-								{
-									host: "readloud.net",
-									path: sub,
-									headers: {
-										"Content-Type": "application/x-www-form-urlencoded",
-										"User-Agent":
-											"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
-									},
-								},
-								(r) => {
-									buffers = [];
-									r.on("data", (d) => buffers.push(d));
-									r.on("end", () => res(Buffer.concat(buffers)));
-								}
-							);
+							get(loc).then(res).catch(rej);
 						});
 						r.on("error", rej);
 					}
@@ -454,14 +443,12 @@ function processVoice(voiceName, text) {
 				req.end(
 					qs.encode({
 						but1: text,
-						butS: 0,
-						butP: 0,
-						butPauses: 0,
-						but: "Submit",
+						but: "Enviar",
 					})
 				);
 				break;
 			}
+        
 			case "cereproc": {
 				const req = https.request(
 					{
