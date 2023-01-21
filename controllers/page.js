@@ -5,7 +5,10 @@ const express = require("express"),
       http = require("http"),
       url = require("url"),
       movie = require("../models/movie"),
-      list = movie.loadRows()
+      list = movie.loadRows(),
+	  path = require("path")
+
+const { Account, users } = require("./account")
 
 function toAttrString(table) {
 	return typeof table == "object"
@@ -1236,5 +1239,11 @@ router.get("/home", (req, res) => {
 	
 	</body>
 	</html>`);
+})
+
+router.get("/home", (req, res) => {
+	const p = url.parse(req.url, true);
+	res.setHeader("Content-Type", "text/html; charset=utf8");
+	res.sendFile(path.join(__dirname, "../html/home.html"));
 })
 module.exports = router;
