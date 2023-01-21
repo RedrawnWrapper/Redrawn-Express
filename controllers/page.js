@@ -1246,4 +1246,30 @@ router.get("/home", (req, res) => {
 	res.setHeader("Content-Type", "text/html; charset=utf8");
 	res.sendFile(path.join(__dirname, "../html/home.html"));
 })
+router.post("/lgn", (req, res) => {
+	var acc = new Account(req.body.name,req.body.pass);
+	if (acc.checkSession(req.body.pass)) {req.session.user = req.body.name;res.send("<a href='/logout'>Log out</a>");}
+})
+router.post("/snp", (req, res) => {
+	if (req.session.user || users[req.body.name]) {res.redirect("/home");}
+	var acc = new Account(req.body.name,req.body.pass);
+	req.session.user = req.body.name;
+	res.send("<script>window.location.href='/home';</script>");
+})
+router.get("/login", (req, res) => {
+	if (req.session.user) {res.redirect("/home");}
+	const p = url.parse(req.url, true);
+	res.setHeader("Content-Type", "text/html; charset=utf8");
+	res.sendFile(path.join(__dirname, "../html/login.html"));
+})
+router.get("/signup", (req, res) => {
+	if (req.session.user) {res.redirect("/home");}
+	const p = url.parse(req.url, true);
+	res.setHeader("Content-Type", "text/html; charset=utf8");
+	res.sendFile(path.join(__dirname, "../html/signup.html"));
+})
+router.get("/logout", (req, res) => {
+	if (req.session.user) {req.session.destroy();}
+	res.redirect("/home");
+})
 module.exports = router;
